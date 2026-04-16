@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-04-16 — Planner Contract Layer
+- Создан `openclaw_system/planner_contract.md`.
+- Создан `runtime/planner.py`.
+- Planner поддерживает `single-task` и `linear-decomposition`.
+- Planner записывает structured tasks в `memory/tasks.json` с `created_by=planner` и `execution_mode=planned`.
+- Advanced planning не реализован.
+
 ## 2026-04-16 — Baseline Freeze v1
 - Зафиксирован baseline: `orchestration-core-v1`.
 - Status: `frozen`.

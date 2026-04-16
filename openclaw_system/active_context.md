@@ -1,28 +1,22 @@
 # Active Context
 
 ## Текущий этап
-- Baseline Freeze: v1 orchestration core
+- Planner Contract Layer
 
 ## Текущая задача
-- Зафиксировать текущую рабочую систему как `orchestration-core-v1` без добавления новых функций.
+- Добавить минимальный planner contract layer поверх frozen baseline v1.
 
-## Что зафиксировано
-- runner
-- review/fix loop
-- memory retrieval
-- queue
-- queue hardening
-- dependency orchestration
-- dependency safety
-- git layer
-- GitHub remote
-- GitHub Actions foundation
+## Что уже сделано
+- создан planner contract
+- создан runtime planner utility
+- подтверждены режимы single-task и linear-decomposition
+- planner пишет structured tasks в `memory/tasks.json`
 
 ## Что остаётся правдой
-- baseline frozen
-- это minimal working orchestration core
-- перед дальнейшим расширением нужно отдельное решение
+- planner минимальный
+- advanced planning ещё не реализован
+- архитектура baseline v1 не менялась
 
 ## Следующий ожидаемый шаг
-- Не расширять систему автоматически.
-- Сначала принять отдельное решение о следующем слое поверх frozen baseline v1.
+- Не добавлять advanced planner автоматически.
+- Использовать текущий minimal planner contract как следующий управляемый слой над queue.

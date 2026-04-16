@@ -18,6 +18,15 @@
 - GitHub remote
 - GitHub Actions foundation
 
+## Minimal planner layer
+- создан `openclaw_system/planner_contract.md`
+- создан `runtime/planner.py`
+- planner пока минимальный и не является advanced planning layer
+- planner умеет переводить high-level task в:
+  - single-task
+  - linear-decomposition
+- planner записывает structured tasks в `memory/tasks.json`
+
 ## Что уже работает
 - task-based execution идёт через `runtime/task_runner.py`
 - review/fix loop работает как обязательный runtime path
@@ -29,6 +38,7 @@
 - git baseline создан и запушен
 - GitHub remote подключён
 - foundation Actions workflow создан и запушен
+- minimal planner contract layer создан и пишет planned tasks
 
 ## Что считается минимально рабочим orchestration core
 - runner + review gate
@@ -37,6 +47,7 @@
 - dependency orchestration + safety
 - git/GitHub baseline
 - minimal GitHub Actions foundation checks
+- minimal planner contract layer
 
 ## Что НЕ входит в baseline v1
 - advanced planner layer
@@ -46,7 +57,8 @@
 - parallel execution
 - advanced DAG orchestration
 - deployment / release automation
+- AI planning / adaptive decomposition
 
 ## Честная оценка
-- baseline v1 зафиксирован как первый рабочий orchestration core
-- дальнейшее расширение должно идти только после отдельного решения по следующему шагу
+- baseline v1 остаётся frozen как orchestration core
+- planner layer добавлен поверх baseline минимально и без смены архитектуры

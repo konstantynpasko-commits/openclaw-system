@@ -18,6 +18,14 @@
 - GitHub remote
 - GitHub Actions foundation
 
+## Minimal planner layer
+- planner contract: `openclaw_system/planner_contract.md`
+- planner runtime utility: `runtime/planner.py`
+- поддерживаются режимы:
+  - `single-task`
+  - `linear-decomposition`
+- planner создаёт tasks со статусом `pending`, `created_by=planner`, `execution_mode=planned`
+
 ## Что уже работает
 - normal task execution path через runner
 - queue lifecycle для задач
@@ -25,6 +33,7 @@
 - self/missing/cycle dependency blocking
 - baseline git repo + origin/main
 - foundation-check workflow зафиксирован в репозитории
+- planner формализует high-level task -> structured tasks
 
 ## Что не входит в frozen baseline
 - advanced planner
@@ -36,5 +45,5 @@
 - внешние интеграции как часть orchestration core
 
 ## Честная оценка
-- это минимально рабочий orchestration core
-- baseline v1 заморожен и готов как точка отсчёта
+- это всё ещё минимальный orchestration core
+- planner пока минимальный utility layer, не advanced planning engine
