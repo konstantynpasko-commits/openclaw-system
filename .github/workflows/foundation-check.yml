@@ -1,0 +1,30 @@
+name: foundation-check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  runtime-foundation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Syntax check runtime core
+        run: |
+          python -m py_compile runtime/task_runner.py
+          python -m py_compile runtime/task_queue.py
+          python -m py_compile runtime/memory.py
+
+      - name: Read-only smoke check
+        run: |
+          python runtime/task_queue.py list
+          python runtime/memory.py search workflow

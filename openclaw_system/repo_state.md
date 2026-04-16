@@ -11,10 +11,11 @@
 - memory retrieval
 - queue
 - queue hardening
+- GitHub Actions foundation checks
 
 ## Что ещё не реализовано
-- GitHub Actions / CI
-- внешний remote workflow с automation поверх baseline push
+- deployment / CI-CD release path
+- внешний remote workflow с automation поверх foundation checks
 - полнофункциональная интеграция GitHub за пределами базового git-слоя
 
 ## Git state
@@ -24,10 +25,10 @@
 - upstream: configured
 - access_mode: SSH
 - baseline pushed: yes
-- baseline branch на remote: `origin/main`
-- baseline commit: `foundation baseline: runner, review, memory, queue`
+- foundation actions workflow: created
+- foundation actions pushed: pending commit/push
 
 ## Честная оценка слоя
 - локальный baseline подключён к GitHub remote и запушен
-- это всё ещё только базовый git/GitHub foundation layer
-- GitHub Actions и CI/CD не настраивались
+- минимальный GitHub Actions workflow добавлен для проверки runtime-ядра
+- это не deployment и не полнофункциональный CI/CD слой

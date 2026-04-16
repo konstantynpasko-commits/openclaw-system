@@ -40,6 +40,12 @@
 - Runtime-факт: `running` задача не выбирается повторно, lock реально блокирует второй запуск, retry растёт до лимита, затем задача уходит в `failed`.
 - Честный статус queue hardening: RUNTIME VERIFIED.
 
+## 2026-04-16 — GitHub Actions foundation
+- Создан `.github/workflows/foundation-check.yml`.
+- Добавлены triggers на `push` и `pull_request` в `main`.
+- Добавлены минимальные проверки runtime-ядра: `py_compile` для runner/queue/memory и read-only smoke checks.
+- Это foundation workflow без deployment, без CI/CD release path и без destructive execution.
+
 ## 2026-04-15 — Stage 5
 - Зафиксирован GitHub слой как часть dev-инфраструктуры.
 - Добавлены github_layer.md, github_actions_layer.md, github_workflow_rules.md, github_actions_templates.md.
