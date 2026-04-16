@@ -31,6 +31,7 @@ def ts():
 
 
 def load_tasks():
+    print('TASKS_PATH =', TASKS_PATH)
     return json.loads(TASKS_PATH.read_text(encoding='utf-8'))
 
 
