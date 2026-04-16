@@ -18,3 +18,11 @@
 - foundation baseline после этапов runner/review/memory/queue должен быть зафиксирован коммитом
 - пока это только git layer: без CI, без GitHub Actions, без remote-automation
 - значимые изменения должны оформляться отдельными понятными коммитами
+
+## Remote connection state
+- remote: configured
+- branch: `main`
+- upstream: configured
+- access_mode: SSH
+- baseline pushed: yes
+- внешний GitHub connection для baseline выполнен без GitHub Actions и без CI

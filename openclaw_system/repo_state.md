@@ -14,15 +14,20 @@
 
 ## Что ещё не реализовано
 - GitHub Actions / CI
-- внешний remote workflow с automation
+- внешний remote workflow с automation поверх baseline push
 - полнофункциональная интеграция GitHub за пределами базового git-слоя
 
 ## Git state
 - git-репозиторий: есть
-- remote: не настроен
-- `.gitignore`: добавлен
+- branch: `main`
+- remote: configured (`origin`)
+- upstream: configured
+- access_mode: SSH
+- baseline pushed: yes
+- baseline branch на remote: `origin/main`
 - baseline commit: `foundation baseline: runner, review, memory, queue`
 
 ## Честная оценка слоя
-- это базовый git/GitHub foundation layer
-- это не внешний GitHub integration и не CI/CD слой
+- локальный baseline подключён к GitHub remote и запушен
+- это всё ещё только базовый git/GitHub foundation layer
+- GitHub Actions и CI/CD не настраивались
