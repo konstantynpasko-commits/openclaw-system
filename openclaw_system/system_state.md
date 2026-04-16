@@ -1,28 +1,40 @@
 # System State
 
-## Текущий режим
-- OpenClaw работает как orchestrator.
-- Telegram остаётся главным интерфейсом.
-- Для task-based execution нормальный обязательный маршрут зафиксирован через `/root/.openclaw/workspace/runtime/task_runner.py`.
-- Поверх runner действует минимальный queue layer в `/root/.openclaw/workspace/runtime/task_queue.py`.
+## Baseline
+- Baseline name: `orchestration-core-v1`
+- Status: `frozen`
+- Scope: `minimal working orchestration core`
+- Next decision required before further expansion
 
-## Execution center baseline
-- Mandatory normal path: `plan -> code -> test -> review` через `task_runner.py`
-- Queue отвечает только за выбор задачи, перевод в `running`, retry_count и базовый lifecycle control
-- Direct task changes вне runner считаются bypass
+## Что входит в baseline v1
+- `runtime/task_runner.py` как execution center
+- review / fix loop
+- `runtime/memory.py` и memory index/search
+- `runtime/task_queue.py`
+- queue hardening
+- dependency orchestration
+- dependency safety validation
+- git layer
+- GitHub remote
+- GitHub Actions foundation
 
-## Queue hardening status
-- Queue hardening выполнен частично, но runtime-проверками подтверждён
-- Закрыто:
-  - повторный выбор задач со статусом `running`
-  - минимальная защита от параллельного `run-next` через lock file
-  - минимальный `retry_count` и перевод в `failed` после лимита
-  - валидация допустимых lifecycle transitions
-- Осталось:
-  - нет полноценного file locking уровня ОС между всеми типами правок кроме lock file для queue-run
-  - прямой edit/write в `memory/tasks.json` всё ещё технически возможен
+## Что уже работает
+- normal task execution path через runner
+- queue lifecycle для задач
+- retry/lock/dependency checks в queue
+- self/missing/cycle dependency blocking
+- baseline git repo + origin/main
+- foundation-check workflow зафиксирован в репозитории
+
+## Что не входит в frozen baseline
+- advanced planner
+- parallel execution
+- advanced DAG orchestration
+- full CI/CD pipeline
+- deployment
+- observability/dashboard
+- внешние интеграции как часть orchestration core
 
 ## Честная оценка
-- Runner остаётся отдельным исполнителем
-- Queue стал жёстче и безопаснее как минимальный orchestration layer
-- Но queue всё ещё опирается на файл задач и не является полностью защищённой многопроцессной системой
+- это минимально рабочий orchestration core
+- baseline v1 заморожен и готов как точка отсчёта

@@ -1,22 +1,28 @@
 # Active Context
 
 ## Текущий этап
-- Queue Hardening
+- Baseline Freeze: v1 orchestration core
 
 ## Текущая задача
-- Усилить `runtime/task_queue.py` минимально, не меняя архитектуру и не трогая следующие этапы.
+- Зафиксировать текущую рабочую систему как `orchestration-core-v1` без добавления новых функций.
 
-## Что уже сделано
-- Добавлен lock file для защиты от параллельного `run-next`.
-- Добавлен `retry_count` с переводом задачи в `failed` после лимита.
-- Добавлена валидация lifecycle transitions.
-- Подтверждено, что `running` задача не выбирается как next task.
+## Что зафиксировано
+- runner
+- review/fix loop
+- memory retrieval
+- queue
+- queue hardening
+- dependency orchestration
+- dependency safety
+- git layer
+- GitHub remote
+- GitHub Actions foundation
 
 ## Что остаётся правдой
-- Queue по-прежнему минимальный и работает поверх `memory/tasks.json`.
-- Прямой ручной edit/write остаётся возможным обходом.
-- Runner остаётся отдельным исполнителем code/test/review.
+- baseline frozen
+- это minimal working orchestration core
+- перед дальнейшим расширением нужно отдельное решение
 
 ## Следующий ожидаемый шаг
-- Не строить дальше автоматически.
-- Использовать текущий hardened queue как baseline Stage 4.
+- Не расширять систему автоматически.
+- Сначала принять отдельное решение о следующем слое поверх frozen baseline v1.

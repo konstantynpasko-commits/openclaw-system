@@ -1,37 +1,52 @@
 # Project Memory
 
-## Текущий статус системы
-- OpenClaw используется как основная оркестрация системы.
-- Telegram является главным интерфейсом.
-- Файловая память уже используется через MEMORY.md и memory/*.json/*.md.
-- Task-based execution идёт через `runtime/task_runner.py`.
-- Queue layer поверх runner реализован в `runtime/task_queue.py`.
+## Baseline v1
+- Baseline name: `orchestration-core-v1`
+- Status: `frozen`
+- Scope: `minimal working orchestration core`
+- Next decision required before further expansion
 
-## Queue hardening summary
-- Проведён аудит слабых мест queue.
-- Найдено до hardening:
-  - нет защиты от параллельного `run-next`
-  - нет retry counter
-  - нет проверки lifecycle transitions
-  - queue опирается на голый file state
-- Усилено:
-  - `running` задача не выбирается повторно как next task
-  - добавлен lock file `/root/.openclaw/workspace/runtime/task_queue.lock`
-  - добавлен `retry_count`
-  - после превышения лимита retry задача уходит в `failed`
-  - добавлена проверка допустимых переходов статусов
+## Что входит в baseline v1
+- `runtime/task_runner.py`
+- review / fix loop
+- `runtime/memory.py` + memory index/search
+- `runtime/task_queue.py`
+- queue hardening
+- dependency orchestration
+- dependency safety validation
+- git layer
+- GitHub remote
+- GitHub Actions foundation
 
-## Что проверено в runtime
-- `task_queue.py next` не выбрал probe со статусом `running`, а выбрал `pending`
-- lock file реально блокирует второй `run-next`
-- `retry_count` реально увеличивается: 1 -> 2 -> 3
-- после лимита retry задача реально переходит в `failed`
+## Что уже работает
+- task-based execution идёт через `runtime/task_runner.py`
+- review/fix loop работает как обязательный runtime path
+- memory retrieval слой работает через `runtime/memory.py`
+- queue умеет выбирать, запускать и переводить задачи по базовому lifecycle
+- queue hardening закрывает повторный выбор `running`, минимальный retry и lock file
+- dependency orchestration поддерживает `depends_on`
+- dependency safety валидирует self/missing/cycle ошибки
+- git baseline создан и запушен
+- GitHub remote подключён
+- foundation Actions workflow создан и запушен
 
-## Что ещё осталось слабым местом
-- queue всё ещё использует файловое состояние без полного межпроцессного transactional контроля
-- прямой manual edit/write в `memory/tasks.json` остаётся возможным обходом
-- это минимальный hardened queue, а не полнофункциональный scheduler
+## Что считается минимально рабочим orchestration core
+- runner + review gate
+- memory retrieval
+- queue + queue hardening
+- dependency orchestration + safety
+- git/GitHub baseline
+- minimal GitHub Actions foundation checks
+
+## Что НЕ входит в baseline v1
+- advanced planner layer
+- n8n / Telegram integration как часть orchestration baseline
+- observability dashboard
+- full CI pipeline
+- parallel execution
+- advanced DAG orchestration
+- deployment / release automation
 
 ## Честная оценка
-- Queue hardening выполнен и подтверждён по runtime-фактам.
-- Но слой остаётся минимальным и file-based.
+- baseline v1 зафиксирован как первый рабочий orchestration core
+- дальнейшее расширение должно идти только после отдельного решения по следующему шагу

@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-04-16 — Baseline Freeze v1
+- Зафиксирован baseline: `orchestration-core-v1`.
+- Status: `frozen`.
+- Scope: `minimal working orchestration core`.
+- В baseline входят: runner, review/fix loop, memory retrieval, queue, queue hardening, dependency orchestration, dependency safety validation, git layer, GitHub remote, GitHub Actions foundation.
+- Дальнейшее расширение требует отдельного решения.
+
 ## 2026-04-15 — Stage 1
 - Зафиксирован базовый контур planner -> coder -> tester.
 - Созданы planner_template.md, coder_execution.md, tester_checklist.md, stage1_execution_cycle.md.
@@ -40,38 +47,20 @@
 - Runtime-факт: `running` задача не выбирается повторно, lock реально блокирует второй запуск, retry растёт до лимита, затем задача уходит в `failed`.
 - Честный статус queue hardening: RUNTIME VERIFIED.
 
+## 2026-04-16 — Stage 5 dependency orchestration
+- Добавлен `depends_on` для task orchestration.
+- Queue запускает `pending` только при выполненных зависимостях.
+- Подтверждена цепочка A -> B -> C до статуса `done`.
+- Честный статус: RUNTIME VERIFIED.
+
+## 2026-04-16 — Stage 5.5 dependency safety
+- Добавлена validation-функция для self/missing/cycle dependency ошибок.
+- Queue блокируется при некорректных зависимостях.
+- Подтверждены реальные блокировки probe-сценариев.
+- Честный статус: RUNTIME VERIFIED.
+
 ## 2026-04-16 — GitHub Actions foundation
 - Создан `.github/workflows/foundation-check.yml`.
 - Добавлены triggers на `push` и `pull_request` в `main`.
 - Добавлены минимальные проверки runtime-ядра: `py_compile` для runner/queue/memory и read-only smoke checks.
 - Это foundation workflow без deployment, без CI/CD release path и без destructive execution.
-
-## 2026-04-15 — Stage 5
-- Зафиксирован GitHub слой как часть dev-инфраструктуры.
-- Добавлены github_layer.md, github_actions_layer.md, github_workflow_rules.md, github_actions_templates.md.
-- GitHub и GitHub Actions внесены в системную конфигурацию как постоянные архитектурные элементы.
-
-## 2026-04-15 — Stage 6
-- Зафиксирован runtime stabilization слой.
-- Добавлены runtime_state.md, runtime_stabilization_plan.md, runtime_tools_matrix.md, runtime_exec_rules.md, runtime_smoke_checklist.md.
-- Зафиксированы PATH, доступные команды, отсутствующие команды и правила работы с runtime limitations.
-
-## 2026-04-15 — Stage 7
-- Зафиксирован integrations layer.
-- Добавлены integrations_state.md, n8n_layer.md, integrations_catalog.md, integrations_rules.md, n8n_activation_checklist.md.
-- Честно отмечено, что n8n пока не подтверждён как активный runtime-компонент.
-
-## 2026-04-15 — Stage 8
-- Зафиксирован guardrails layer.
-- Добавлены guardrails_layer.md, risk_tiers.md, approval_rules.md, blocked_actions.md, action_limits.md, guardrails_checklist.md.
-- Ограничения действий и правила подтверждения оформлены как постоянный системный контур.
-
-## 2026-04-15 — Stage 9
-- Зафиксирован auxiliary models layer.
-- Добавлены aux_models_layer.md, aux_models_catalog.md, model_routing_rules.md, aux_models_usage_policy.md, model_activation_checklist.md.
-- Разрешённые ACP agents отделены от фактически основного маршрута и от неподтверждённой production-активации.
-
-## 2026-04-15 — Stage 10
-- Зафиксирован scenario templates layer.
-- Добавлены bugfix_template.md, feature_template.md, refactor_template.md, scenario_selection_rules.md, scenario_workflow_map.md.
-- Шаблоны сценариев встроены в системную конфигурацию как последний этап базового плана.
