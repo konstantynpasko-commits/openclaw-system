@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from typing import List, Dict
 
-WORKSPACE = Path('/root/.openclaw/workspace')
+WORKSPACE = Path(__file__).resolve().parents[1]
 SOURCE_DIR = WORKSPACE / 'openclaw_system'
 INDEX_PATH = WORKSPACE / 'memory' / 'memory_index.json'
 

@@ -5,7 +5,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-WORKSPACE = Path('/root/.openclaw/workspace')
+WORKSPACE = Path(__file__).resolve().parents[1]
 TASKS_PATH = WORKSPACE / 'memory' / 'tasks.json'
 RUNTIME_LOG = WORKSPACE / 'memory' / 'runtime-log.jsonl'
 ALLOWED_REVIEW = {'OK', 'FIX'}

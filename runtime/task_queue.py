@@ -6,7 +6,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-WORKSPACE = Path('/root/.openclaw/workspace')
+WORKSPACE = Path(__file__).resolve().parents[1]
 TASKS_PATH = WORKSPACE / 'memory' / 'tasks.json'
 RUNNER_PATH = WORKSPACE / 'runtime' / 'task_runner.py'
 RUNTIME_LOG = WORKSPACE / 'memory' / 'runtime-log.jsonl'
@@ -193,7 +193,7 @@ def run_next_task():
             'returncode': result.returncode,
             'stdout': result.stdout,
             'stderr': result.stderr,
-            'command': 'python3 /root/.openclaw/workspace/runtime/task_runner.py ' + task_id,
+            'command': f'python3 {RUNNER_PATH} ' + task_id,
         }
     finally:
         release_lock()
