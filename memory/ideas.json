@@ -1,0 +1,11 @@
+[
+  {
+    "id": "idea_telegram_control_hub",
+    "title": "Telegram as single control hub",
+    "status": "open",
+    "summary": "Use Telegram as the main interface for tasks, updates, and control.",
+    "project_id": "proj_openclaw_mvp",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  }
+]

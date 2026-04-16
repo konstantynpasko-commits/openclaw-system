@@ -1,0 +1,13 @@
+[
+  {
+    "id": "queue_stage4_bootstrap",
+    "title": "Bootstrap stage 4 task queue layer",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15",
+    "owner": "openclaw",
+    "stage": "stage4",
+    "notes": "Initial queue layer files created and task queue statuses defined."
+  }
+]

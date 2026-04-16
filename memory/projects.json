@@ -1,0 +1,10 @@
+[
+  {
+    "id": "proj_openclaw_mvp",
+    "name": "OpenClaw MVP",
+    "status": "active",
+    "summary": "Build minimal OpenClaw MVP with Telegram as the main interface and a project memory layer.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  }
+]

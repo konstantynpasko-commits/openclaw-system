@@ -1,0 +1,427 @@
+[
+  {
+    "id": "task_define_memory_layer",
+    "title": "Define minimal memory layer",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Created base memory files and MVP scope.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_define_memory_rules",
+    "title": "Define memory schemas and update rules",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Added minimal schemas and rules for projects, ideas, and tasks.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_enable_memory_task_intake",
+    "title": "Use memory automatically on every new task",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Added task-intake workflow and automatic memory-read rules.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_implement_runtime_memory_usage",
+    "title": "Implement actual runtime memory usage",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Made task intake a runtime rule in AGENTS.md and completed one real task lifecycle example.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_create_codex_probe_file",
+    "title": "Create codex_probe.txt in project root",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Created codex_probe.txt with exact probe text.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_patch_runtime_memory_preload",
+    "title": "Patch runtime to preload project memory before each new task",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Patched runtime bootstrap loading to include memory/projects.json, memory/ideas.json, memory/tasks.json, and memory/context.md before each run.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_set_executor_routing_rule",
+    "title": "Set executor routing runtime rule",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Saved executor routing rule to docs/executor_routing.md and added explicit runtime note to AGENTS.md.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_create_test_codex_execution_file",
+    "title": "Create /opt/openclaw_mvp/test_codex_execution.py",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Create the file with exact content print(\"codex works\") and verify it was written successfully.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_create_test_real_py",
+    "title": "Create test_real.py with print(\"ok\")",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Created test_real.py in workspace root with exact content print(\"ok\").",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_refactor_test_real_py_main",
+    "title": "Refactor test_real.py to use main() and print \"ok 2\"",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Refactored test_real.py to define main() and print exact text ok 2.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_create_test_phone_txt",
+    "title": "Create test_phone.txt with PHONE_OK",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Create test_phone.txt in workspace root with exact content PHONE_OK.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_create_phone_second_txt",
+    "title": "Create phone_second.txt with SECOND_OK",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Create phone_second.txt in workspace root with exact content SECOND_OK.",
+    "created_at": "2026-04-09",
+    "updated_at": "2026-04-09"
+  },
+  {
+    "id": "task_check_openclaw_model_env_and_usage",
+    "title": "Check OpenClaw orchestration model, .env OpenAI key, and token usage logs",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Inspected current orchestration model, checked /root/.openclaw/.env for OPENAI variables, and verified available usage data via session status and local logs.",
+    "created_at": "2026-04-13",
+    "updated_at": "2026-04-13"
+  },
+  {
+    "id": "task_change_orchestrator_model_to_gpt4omini",
+    "title": "Change OpenClaw orchestrator model to openai/gpt-4o-mini and restart",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Updated /root/.openclaw/openclaw.json main agent model to openai/gpt-4o-mini, restarted OpenClaw, and verified the saved config plus post-restart session status.",
+    "created_at": "2026-04-13",
+    "updated_at": "2026-04-13"
+  },
+  {
+    "id": "task_diagnose_llm_call_processes",
+    "title": "Diagnose which processes may be making LLM calls",
+    "status": "in_progress",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Step 1: inspect running services, ACP adapters, tmux, and background processes that could trigger Codex/Claude/OpenClaw model calls.",
+    "created_at": "2026-04-14",
+    "updated_at": "2026-04-14"
+  },
+  {
+    "id": "task_record_global_project_goal",
+    "title": "Record the global goal and current stabilization phase for OpenClaw MVP",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Saved the explicit global goal: build a reliable personal AI operator in Telegram with memory and controlled execution; current phase is architecture stabilization for subscription-safe, predictable runtime behavior.",
+    "created_at": "2026-04-14",
+    "updated_at": "2026-04-14"
+  },
+  {
+    "id": "task_set_acceleration_stack_mode",
+    "title": "Set acceleration stack mode for fast project launch and delivery",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Embedded project launch mode, AI role separation, GitHub starter sourcing, reusable module defaults, and n8n-as-sidecar delivery rules into AGENTS.md, docs/acceleration_stack.md, daily memory, and runtime log.",
+    "created_at": "2026-04-14",
+    "updated_at": "2026-04-14"
+  },
+  {
+    "id": "task_configure_session_rotation_for_blocks",
+    "title": "Configure OpenClaw session rotation for block-based work",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Adjusted session.threadBindings to idleHours=2 and maxAgeHours=8 so Telegram direct chats rotate into fresh sessions instead of keeping one persistent overheated context.",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15"
+  },
+  {
+    "id": "task_implement_stage1_role_cycle",
+    "title": "Implement stage 1 role cycle planner -> coder -> tester",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Created concrete workflow files and operating checklists for the first-stage execution loop in openclaw_system: planner_template.md, coder_execution.md, tester_checklist.md, stage1_execution_cycle.md, and updated workflow_definition.md/project_memory.md.",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15"
+  },
+  {
+    "id": "task_implement_stage2_reviewer_cycle",
+    "title": "Implement stage 2 reviewer and feedback cycle",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Added reviewer_definition.md, review_checklist.md, fix_loop_definition.md, stage2_review_cycle.md, and updated workflow_definition.md, roles_definition.md, and project_memory.md so review becomes an explicit required stage after testing.",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15"
+  },
+  {
+    "id": "task_implement_stage3_project_memory_layer",
+    "title": "Implement stage 3 structured project memory layer",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Created structured memory files inside openclaw_system: project_memory_schema.md, memory_index.md, system_state.md, progress_log.md, active_context.md, decisions_log.md; updated project_memory.md to define how system state, progress, decisions, and active work are stored.",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15"
+  },
+  {
+    "id": "task_implement_stage4_task_queue",
+    "title": "Implement stage 4 task queue with pending running failed done",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Created structured queue files and status rules inside openclaw_system: task_queue_schema.md, task_queue_rules.md, task_queue.json, task_queue_state.md; updated memory_index.md, system_state.md, progress_log.md, active_context.md, decisions_log.md, and project_memory.md.",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15"
+  },
+  {
+    "id": "task_implement_stage5_github_layer",
+    "title": "Implement stage 5 GitHub and GitHub Actions layer",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Created github_layer.md, github_actions_layer.md, github_workflow_rules.md, github_actions_templates.md inside openclaw_system; updated memory_index.md, system_state.md, progress_log.md, active_context.md, decisions_log.md, and project_memory.md.",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15"
+  },
+  {
+    "id": "task_implement_stage6_runtime_stabilization_layer",
+    "title": "Implement stage 6 runtime stabilization layer",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Documented actual runtime state, PATH/tool availability, exec constraints, and stabilization rules inside openclaw_system; created runtime_state.md, runtime_stabilization_plan.md, runtime_tools_matrix.md, runtime_exec_rules.md, and runtime_smoke_checklist.md; updated system memory files.",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15"
+  },
+  {
+    "id": "task_implement_stage7_n8n_integrations_layer",
+    "title": "Implement stage 7 n8n and integrations layer",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Documented actual integration baseline and created n8n/integrations operating layer inside openclaw_system: integrations_state.md, n8n_layer.md, integrations_catalog.md, integrations_rules.md, n8n_activation_checklist.md; updated system memory files and honestly marked n8n as planned, not confirmed active.",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15"
+  },
+  {
+    "id": "task_implement_stage8_guardrails_layer",
+    "title": "Implement stage 8 guardrails and action limits layer",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Created guardrails_layer.md, risk_tiers.md, approval_rules.md, blocked_actions.md, action_limits.md, and guardrails_checklist.md inside openclaw_system; updated system memory files to make guardrails a permanent system layer.",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15"
+  },
+  {
+    "id": "task_implement_stage9_aux_models_layer",
+    "title": "Implement stage 9 auxiliary models layer",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Created aux_models_layer.md, aux_models_catalog.md, model_routing_rules.md, aux_models_usage_policy.md, and model_activation_checklist.md based on actual openclaw.json allowlist and main Codex path; updated system memory files.",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15"
+  },
+  {
+    "id": "task_implement_stage10_scenario_templates",
+    "title": "Implement stage 10 scenario templates",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Created bugfix_template.md, feature_template.md, refactor_template.md, scenario_selection_rules.md, and scenario_workflow_map.md inside openclaw_system; updated system memory files and marked the base 10-stage plan complete.",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-15"
+  },
+  {
+    "id": "task_stage1_runtime_runner_probe",
+    "title": "Run stage1 runtime task runner probe",
+    "status": "todo",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Probe task for FOUNDATION REPAIR of Stage 1 runtime enforcement.",
+    "plan": "Run code_command only if plan exists, then enforce test_command before allowing done.",
+    "code_command": "python3 /root/.openclaw/workspace/runtime/stage1_probe_output.py > /root/.openclaw/workspace/runtime/stage1_probe_result.txt",
+    "test_command": "python3 - <<'PY'\nfrom pathlib import Path\np = Path('/root/.openclaw/workspace/runtime/stage1_probe_result.txt')\nassert p.exists(), 'result file missing'\ntext = p.read_text().strip()\nassert text == 'stage1 runner ok', f'unexpected content: {text!r}'\nprint('test passed')\nPY",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-16",
+    "last_test_status": "pass",
+    "last_review_status": "missing"
+  },
+  {
+    "id": "task_stage2_review_gate_probe",
+    "title": "Run stage2 review gate probe",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Probe task for FOUNDATION REPAIR of Stage 2 review gate and fix loop.",
+    "plan": "Run code and test, then block done on review FIX and allow done only on review OK.",
+    "code_command": "python3 /root/.openclaw/workspace/runtime/stage2_probe_output.py > /root/.openclaw/workspace/runtime/stage2_probe_result.txt",
+    "test_command": "python3 - <<'PY'\nfrom pathlib import Path\np = Path('/root/.openclaw/workspace/runtime/stage2_probe_result.txt')\nassert p.exists(), 'result file missing'\ntext = p.read_text().strip()\nassert text == 'stage2 runner ok', f'unexpected content: {text!r}'\nprint('test passed')\nPY",
+    "review_decision": "OK",
+    "created_at": "2026-04-15",
+    "updated_at": "2026-04-16",
+    "last_test_status": "pass",
+    "last_review_status": "ok",
+    "execution_mode": "runner",
+    "runner_required": true,
+    "runner_last_run_at": "2026-04-16T17:34:50Z"
+  },
+  {
+    "id": "task_foundation_repair_stage3_runtime_retrieval",
+    "title": "Implement runtime retrieval layer for FOUNDATION REPAIR Stage 3",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Implemented runtime/memory.py with build_index() and search(); created memory/memory_index.json from openclaw_system markdown files and verified runtime search results for workflow, review, development plan, and system rules.",
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16"
+  },
+  {
+    "id": "task_foundation_status_audit_stage1_stage3",
+    "title": "Audit foundation status for Stages 1-3 and record baseline",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Audited Stages 1-3 by runtime facts and updated openclaw_system/project_memory.md, system_state.md, active_context.md, and progress_log.md with the truthful baseline: Stage 1 PARTIAL, Stage 2 RUNTIME VERIFIED, Stage 3 RUNTIME VERIFIED.",
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16"
+  },
+  {
+    "id": "task_foundation_hardening_runner_center",
+    "title": "Harden runtime task_runner as the center of task execution",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Audit task execution bypass paths, strengthen runtime/task_runner.py, and update system docs so runner is the mandatory normal path and bypass is explicitly marked.",
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16",
+    "execution_mode": "bypass_execution",
+    "runner_required": true,
+    "bypass_reason": "Hardening work itself was applied directly with built-in edit/write tools during controlled manual implementation.",
+    "bypass_recorded_at": "2026-04-16T17:35:13Z"
+  },
+  {
+    "id": "task_implement_stage4_minimal_task_queue_layer",
+    "title": "Implement minimal Stage 4 task queue layer",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Created runtime/task_queue.py using memory/tasks.json, added two queue probes, and verified pending->running->done and pending->running->fix_required transitions through runtime/task_runner.py.",
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16"
+  },
+  {
+    "id": "task_stage4_queue_probe_done",
+    "title": "Stage 4 queue probe success path",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Queue probe for pending -> running -> done.",
+    "plan": "Run code and test, then allow done on review OK.",
+    "code_command": "python3 /root/.openclaw/workspace/runtime/stage2_probe_output.py > /root/.openclaw/workspace/runtime/stage4_queue_probe_done.txt",
+    "test_command": "python3 - <<'PY'\nfrom pathlib import Path\np = Path('/root/.openclaw/workspace/runtime/stage4_queue_probe_done.txt')\nassert p.exists(), 'result file missing'\ntext = p.read_text().strip()\nassert text == 'stage2 runner ok', f'unexpected content: {text!r}'\nprint('test passed')\nPY",
+    "review_decision": "OK",
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16",
+    "execution_mode": "runner",
+    "runner_required": true,
+    "runner_last_run_at": "2026-04-16T17:45:27Z",
+    "last_test_status": "pass",
+    "last_review_status": "ok"
+  },
+  {
+    "id": "task_stage4_queue_probe_fix",
+    "title": "Stage 4 queue probe fix_required path",
+    "status": "failed",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Queue probe for pending -> running -> fix_required.",
+    "plan": "Run code and test, then stop on review FIX.",
+    "code_command": "python3 /root/.openclaw/workspace/runtime/stage2_probe_output.py > /root/.openclaw/workspace/runtime/stage4_queue_probe_fix.txt",
+    "test_command": "python3 - <<'PY'\nfrom pathlib import Path\np = Path('/root/.openclaw/workspace/runtime/stage4_queue_probe_fix.txt')\nassert p.exists(), 'result file missing'\ntext = p.read_text().strip()\nassert text == 'stage2 runner ok', f'unexpected content: {text!r}'\nprint('test passed')\nPY",
+    "review_decision": "FIX",
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16",
+    "execution_mode": "runner",
+    "runner_required": true,
+    "runner_last_run_at": "2026-04-16T17:58:25Z",
+    "last_test_status": "pass",
+    "last_review_status": "fix",
+    "retry_count": 3
+  },
+  {
+    "id": "task_queue_hardening_minimal",
+    "title": "Harden minimal task queue",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Added lock file, retry_count, lifecycle validation, and running-task skip to runtime/task_queue.py; verified selection skip, retry escalation to failed, and lock blocking of concurrent run-next.",
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16"
+  },
+  {
+    "id": "task_queue_harden_running_skip",
+    "title": "Queue hardening running skip probe",
+    "status": "running",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Should not be selected by get_next_task while already running.",
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16"
+  },
+  {
+    "id": "task_queue_harden_pending_pick",
+    "title": "Queue hardening pending selection probe",
+    "status": "pending",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Should be selected instead of running task.",
+    "plan": "Run code and test, then allow done on review OK.",
+    "code_command": "python3 /root/.openclaw/workspace/runtime/stage2_probe_output.py > /root/.openclaw/workspace/runtime/task_queue_harden_pending_pick.txt",
+    "test_command": "python3 - <<'PY'\nfrom pathlib import Path\np = Path('/root/.openclaw/workspace/runtime/task_queue_harden_pending_pick.txt')\nassert p.exists(), 'result file missing'\ntext = p.read_text().strip()\nassert text == 'stage2 runner ok', f'unexpected content: {text!r}'\nprint('test passed')\nPY",
+    "review_decision": "OK",
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16",
+    "execution_mode": "runner",
+    "runner_required": true,
+    "runner_last_run_at": "2026-04-16T17:58:25Z",
+    "last_test_status": "pass",
+    "last_review_status": "ok"
+  },
+  {
+    "id": "task_queue_harden_retry_probe",
+    "title": "Queue hardening retry probe",
+    "status": "failed",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Should increment retry_count and end in failed after retry limit.",
+    "plan": "Run code and test, then stop on review FIX until retry limit is exceeded.",
+    "code_command": "python3 /root/.openclaw/workspace/runtime/stage2_probe_output.py > /root/.openclaw/workspace/runtime/task_queue_harden_retry_probe.txt",
+    "test_command": "python3 - <<'PY'\nfrom pathlib import Path\np = Path('/root/.openclaw/workspace/runtime/task_queue_harden_retry_probe.txt')\nassert p.exists(), 'result file missing'\ntext = p.read_text().strip()\nassert text == 'stage2 runner ok', f'unexpected content: {text!r}'\nprint('test passed')\nPY",
+    "review_decision": "FIX",
+    "retry_count": 3,
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16",
+    "execution_mode": "runner",
+    "runner_required": true,
+    "runner_last_run_at": "2026-04-16T17:58:27Z",
+    "last_test_status": "pass",
+    "last_review_status": "fix"
+  },
+  {
+    "id": "task_git_layer_foundation_baseline",
+    "title": "Prepare git/GitHub layer foundation baseline",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Audited existing git repository, added .gitignore, updated github_layer.md and repo_state.md, and created baseline commit 9c84a2e for foundation state.",
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16"
+  }
+]

@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+
+# Runtime locks and probe artifacts
+runtime/*.lock
+runtime/*probe*
+runtime/*_result.txt
+runtime/*_done.txt
+runtime/*_fix.txt
+runtime/task_queue_harden_*.txt
+
+# Local runtime/state artifacts
+memory/runtime-log.jsonl
+memory/memory_index.json
+memory/tasks.json.bak-*
+.openclaw/
+
+# OS/editor noise
+.DS_Store
+*.swp
+*.tmp
