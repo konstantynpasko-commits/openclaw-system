@@ -30,6 +30,21 @@
 - Planner-to-Queue Handshake
 - verified chain: `planner -> tasks.json -> queue -> runner -> review -> done`
 
+## Additional runtime layer
+
+### Observability (minimal)
+- file: `runtime/observability.py`
+- mode: CLI / text output only
+- source: `memory/tasks.json`
+- commands:
+  - `summary`
+  - `list`
+  - `blocked`
+  - `chain <task_id>`
+- no UI
+- no dashboard
+- no new service
+
 ## Not in baseline v1.1
 - advanced planner
 - external integrations
@@ -42,4 +57,5 @@
 ## Honest status
 - baseline v1.1 is frozen
 - current system remains minimal orchestration core
+- observability layer is minimal CLI only
 - further expansion requires explicit next decision

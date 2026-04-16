@@ -31,6 +31,21 @@
 - verified end-to-end chain:
   - `planner -> tasks.json -> queue -> runner -> review -> done`
 
+## Post-baseline layers
+
+### Observability layer (minimal)
+- `runtime/observability.py`
+- CLI only
+- reads `memory/tasks.json`
+- commands:
+  - `summary`
+  - `list`
+  - `blocked`
+  - `chain <task_id>`
+- no UI
+- no dashboard
+- no web interface
+
 ## Что НЕ входит в baseline v1.1
 - advanced planner
 - external integrations

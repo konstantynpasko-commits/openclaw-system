@@ -1,20 +1,21 @@
 # Active Context
 
 ## Current phase
-- BASELINE FREEZE: `orchestration-core-v1.1`
+- IMPLEMENTATION: Observability Layer (minimal)
 
 ## Current task
-- Freeze the confirmed post-handshake system state as baseline v1.1.
+- Add minimal CLI observability over `memory/tasks.json`.
 
-## What is fixed in this freeze
-- minimal orchestration core remains unchanged
-- planner handshake is now part of the frozen baseline
-- verified chain: `planner -> tasks.json -> queue -> runner -> review -> done`
+## What was added
+- `runtime/observability.py`
+- commands: `summary`, `list`, `blocked`, `chain <task_id>`
+- text output only
 
 ## What remains true
-- no new architecture added
-- no new layer started
-- no new features introduced during freeze
+- no UI
+- no dashboard
+- no web interface
+- planner / queue / runner were not changed for this step
 
 ## Next step policy
-- next decision required before any further expansion
+- use observability for system visibility only

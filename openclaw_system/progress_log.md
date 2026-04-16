@@ -1,5 +1,22 @@
 # Progress Log
 
+## 2026-04-16 — Observability layer (minimal)
+- Created `runtime/observability.py`.
+- Added CLI commands over `memory/tasks.json`:
+  - `summary`
+  - `list`
+  - `blocked`
+  - `chain <task_id>`
+- `summary` reports total, pending, running, fix_required, done, failed.
+- `list` reports id, status, depends_on, created_by, execution_mode.
+- `blocked` reports pending tasks with incomplete dependencies.
+- `chain` reports dependency chain up and down as text.
+- Probe confirmed `summary` output.
+- Probe confirmed `blocked` output.
+- No UI added.
+- No dashboard added.
+- Honest status: RUNTIME VERIFIED.
+
 ## 2026-04-16 — Baseline Freeze v1.1
 - Frozen baseline: `orchestration-core-v1.1`.
 - Status: `frozen`.

@@ -701,5 +701,14 @@
     "notes": "Freeze confirmed planner handshake state as baseline v1.1, update baseline files, commit, and push.",
     "created_at": "2026-04-16",
     "updated_at": "2026-04-16"
+  },
+  {
+    "id": "task_implement_observability_layer_minimal",
+    "title": "Implement Observability Layer (minimal)",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Add runtime/observability.py CLI with summary, list, blocked, chain over memory/tasks.json; no UI, no services.",
+    "created_at": "2026-04-16",
+    "updated_at": "2026-04-16"
   }
 ]
