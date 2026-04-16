@@ -37,8 +37,8 @@ def ensure_unique_id(task_id: str, tasks):
     return f'{task_id}_{n}'
 
 
-def make_task(goal, task_id, title, description, plan, depends_on, success_criteria):
-    return {
+def make_task(goal, task_id, title, description, plan, depends_on, success_criteria, proof_artifact=None, review_decision='OK'):
+    task = {
         'goal': goal,
         'task_id': task_id,
         'id': task_id,
@@ -57,6 +57,23 @@ def make_task(goal, task_id, title, description, plan, depends_on, success_crite
         'created_at': today(),
         'updated_at': today(),
     }
+    if proof_artifact:
+        artifact_path = f'/root/.openclaw/workspace/runtime/{proof_artifact}'
+        task['code_command'] = (
+            "python3 - <<'PY'\n"
+            f"from pathlib import Path\nPath('{artifact_path}').write_text({title!r} + '\\n', encoding='utf-8')\n"
+            "print('proof written')\nPY"
+        )
+        task['test_command'] = (
+            "python3 - <<'PY'\n"
+            "from pathlib import Path\n"
+            f"p = Path('{artifact_path}')\n"
+            "assert p.exists(), 'result file missing'\n"
+            f"text = p.read_text(encoding='utf-8').strip()\nassert text == {title!r}, f'unexpected content: {{text!r}}'\n"
+            "print('test passed')\nPY"
+        )
+        task['review_decision'] = review_decision
+    return task
 
 
 def plan_single_task(goal: str, title: str, description: str):
@@ -75,11 +92,12 @@ def plan_single_task(goal: str, title: str, description: str):
     ]
 
 
-def plan_linear(goal: str, title: str, description: str, steps):
+def plan_linear(goal: str, title: str, description: str, steps, proof_prefix=None):
     tasks = []
     previous = None
     for idx, step in enumerate(steps, 1):
         task_id = f'planned_{slug(title)}_{idx}'
+        proof_artifact = f'{proof_prefix}_{idx}.txt' if proof_prefix else None
         tasks.append(
             make_task(
                 goal=goal,
@@ -89,6 +107,7 @@ def plan_linear(goal: str, title: str, description: str, steps):
                 plan=f'Execute linear step {idx}: {step}',
                 depends_on=[previous] if previous else [],
                 success_criteria=f'Step {idx} completed: {step}',
+                proof_artifact=proof_artifact,
             )
         )
         previous = task_id
@@ -112,7 +131,7 @@ def append_planned_tasks(new_tasks):
 
 def main():
     if len(sys.argv) < 4:
-        print('usage: planner.py <single-task|linear-decomposition> <title> <description> [step1|step2|step3]', file=sys.stderr)
+        print('usage: planner.py <single-task|linear-decomposition> <title> <description> [step1|step2|step3] [proof_prefix]', file=sys.stderr)
         sys.exit(2)
 
     mode = sys.argv[1]
@@ -124,8 +143,9 @@ def main():
         planned = plan_single_task(goal, title, description)
     elif mode == 'linear-decomposition':
         raw_steps = sys.argv[4] if len(sys.argv) >= 5 else 'Step 1|Step 2|Step 3'
+        proof_prefix = sys.argv[5] if len(sys.argv) >= 6 else None
         steps = [s.strip() for s in raw_steps.split('|') if s.strip()]
-        planned = plan_linear(goal, title, description, steps[:3])
+        planned = plan_linear(goal, title, description, steps[:3], proof_prefix=proof_prefix)
     else:
         print(f'unknown mode: {mode}', file=sys.stderr)
         sys.exit(2)

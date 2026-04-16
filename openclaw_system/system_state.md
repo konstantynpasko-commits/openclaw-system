@@ -1,49 +1,45 @@
 # System State
 
 ## Baseline
-- Baseline name: `orchestration-core-v1`
+- Baseline name: `orchestration-core-v1.1`
 - Status: `frozen`
-- Scope: `minimal working orchestration core`
+- Scope: `minimal working orchestration core + verified planner handshake`
 - Next decision required before further expansion
 
-## Что входит в baseline v1
-- `runtime/task_runner.py` как execution center
+## Active baseline contents
+
+### Core
+- `runtime/task_runner.py` as execution center
 - review / fix loop
-- `runtime/memory.py` и memory index/search
+- `runtime/memory.py` and memory index/search
 - `runtime/task_queue.py`
 - queue hardening
 - dependency orchestration
 - dependency safety validation
+
+### Git / CI
 - git layer
 - GitHub remote
 - GitHub Actions foundation
 
-## Minimal planner layer
+### Planner
 - planner contract: `openclaw_system/planner_contract.md`
 - planner runtime utility: `runtime/planner.py`
-- поддерживаются режимы:
-  - `single-task`
-  - `linear-decomposition`
-- planner создаёт tasks со статусом `pending`, `created_by=planner`, `execution_mode=planned`
+- `single-task`
+- `linear-decomposition`
+- Planner-to-Queue Handshake
+- verified chain: `planner -> tasks.json -> queue -> runner -> review -> done`
 
-## Что уже работает
-- normal task execution path через runner
-- queue lifecycle для задач
-- retry/lock/dependency checks в queue
-- self/missing/cycle dependency blocking
-- baseline git repo + origin/main
-- foundation-check workflow зафиксирован в репозитории
-- planner формализует high-level task -> structured tasks
-
-## Что не входит в frozen baseline
+## Not in baseline v1.1
 - advanced planner
+- external integrations
+- n8n / Telegram
+- observability/dashboard
 - parallel execution
 - advanced DAG orchestration
-- full CI/CD pipeline
-- deployment
-- observability/dashboard
-- внешние интеграции как часть orchestration core
+- full CI pipeline
 
-## Честная оценка
-- это всё ещё минимальный orchestration core
-- planner пока минимальный utility layer, не advanced planning engine
+## Honest status
+- baseline v1.1 is frozen
+- current system remains minimal orchestration core
+- further expansion requires explicit next decision

@@ -26,13 +26,22 @@ ALLOWED_TRANSITIONS = {
 MAX_RETRY_COUNT = 2
 
 
+class DependencyValidationError(Exception):
+    def __init__(self, reason, task_id, details=None):
+        super().__init__(reason)
+        self.reason = reason
+        self.task_id = task_id
+        self.details = details or {}
+
+
 def ts():
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
 
 
 def load_tasks():
-    print('TASKS_PATH =', TASKS_PATH)
-    return json.loads(TASKS_PATH.read_text(encoding='utf-8'))
+    tasks = json.loads(TASKS_PATH.read_text(encoding='utf-8'))
+    validate_dependencies(tasks)
+    return tasks
 
 
 def save_tasks(tasks):
@@ -62,6 +71,45 @@ def get_task(task_id, tasks=None):
 def validate_transition(current_status, new_status):
     allowed = ALLOWED_TRANSITIONS.get(current_status, set())
     return new_status in allowed
+
+
+def validate_dependencies(tasks):
+    task_ids = {task.get('id') for task in tasks}
+
+    for task in tasks:
+        task_id = task.get('id')
+        depends_on = task.get('depends_on', []) or []
+        if task_id in depends_on:
+            log_event('dependency_validation_failed', 'blocked', reason='self_dependency', task_id=task_id)
+            raise DependencyValidationError('self_dependency', task_id)
+        for dep_id in depends_on:
+            if dep_id not in task_ids:
+                log_event('dependency_validation_failed', 'blocked', reason='missing_dependency', task_id=task_id, missing_dependency=dep_id)
+                raise DependencyValidationError('missing_dependency', task_id, {'missing_dependency': dep_id})
+
+    graph = {task.get('id'): (task.get('depends_on', []) or []) for task in tasks}
+    visited = set()
+    stack = []
+    active = set()
+
+    def dfs(node):
+        if node in active:
+            cycle_path = stack + [node]
+            log_event('dependency_validation_failed', 'blocked', reason='cycle_detected', task_id=node, cycle_path=cycle_path)
+            raise DependencyValidationError('cycle_detected', node, {'cycle_path': cycle_path})
+        if node in visited:
+            return
+        active.add(node)
+        stack.append(node)
+        for dep in graph.get(node, []):
+            dfs(dep)
+        stack.pop()
+        active.remove(node)
+        visited.add(node)
+
+    for node in graph:
+        if node not in visited:
+            dfs(node)
 
 
 def set_task_status(task_id, new_status):
@@ -100,12 +148,37 @@ def release_lock():
         log_event('lock_released', 'ok', lock_path=str(LOCK_PATH), pid=os.getpid())
 
 
-def get_next_task():
+def dependencies_ready(task, tasks):
+    depends_on = task.get('depends_on', []) or []
+    statuses = {}
+    missing = []
+    for dep_id in depends_on:
+        dep_task = get_task(dep_id, tasks)
+        dep_status = dep_task.get('status') if dep_task else 'missing'
+        statuses[dep_id] = dep_status
+        if dep_status != 'done':
+            missing.append(dep_id)
+    log_event('dependencies_checked', 'ok', task_id=task.get('id'), depends_on=depends_on, dependency_statuses=statuses)
+    if missing:
+        log_event('dependencies_blocked', 'blocked', task_id=task.get('id'), missing_dependencies=missing)
+        return False, missing
+    log_event('dependencies_satisfied', 'ok', task_id=task.get('id'), depends_on=depends_on)
+    return True, []
+
+
+def get_next_task(goal=None):
     tasks = load_tasks()
     for wanted in PRIORITY_STATUSES:
         for task in tasks:
-            if task.get('status') == wanted:
-                return task
+            if goal is not None and task.get('goal') != goal:
+                continue
+            if task.get('status') != wanted:
+                continue
+            if wanted == 'pending':
+                ready, _ = dependencies_ready(task, tasks)
+                if not ready:
+                    continue
+            return task
     return None
 
 
@@ -141,7 +214,7 @@ def _bump_retry_or_fail(task_id, current_status):
     return task.get('status'), retry_count
 
 
-def run_next_task():
+def run_next_task(goal=None):
     if not acquire_lock():
         return {
             'ok': False,
@@ -150,11 +223,19 @@ def run_next_task():
         }
 
     try:
-        task = get_next_task()
+        try:
+            validate_dependencies(load_tasks())
+        except DependencyValidationError as e:
+            payload = {'ok': False, 'reason': e.reason, 'task_id': e.task_id}
+            payload.update(e.details)
+            return payload
+
+        task = get_next_task(goal=goal)
         if not task:
             return {
                 'ok': True,
                 'message': 'no runnable tasks',
+                'goal': goal,
             }
 
         task_id = task['id']
@@ -165,6 +246,17 @@ def run_next_task():
                 'ok': False,
                 'task_id': task_id,
                 'message': f'task not runnable from status {previous_status}',
+            }
+
+        tasks = load_tasks()
+        current_task = get_task(task_id, tasks)
+        ready, missing = dependencies_ready(current_task, tasks)
+        if not ready:
+            return {
+                'ok': False,
+                'task_id': task_id,
+                'reason': 'dependencies_not_ready',
+                'missing_dependencies': missing,
             }
 
         set_task_status(task_id, 'running')
@@ -196,18 +288,30 @@ def run_next_task():
             'stderr': result.stderr,
             'command': f'python3 {RUNNER_PATH} ' + task_id,
         }
+    except DependencyValidationError as e:
+        payload = {'ok': False, 'reason': e.reason, 'task_id': e.task_id}
+        payload.update(e.details)
+        return payload
     finally:
         release_lock()
 
 
 if __name__ == '__main__':
-    if len(sys.argv) == 2 and sys.argv[1] == 'list':
-        print(json.dumps(list_tasks(), ensure_ascii=False, indent=2))
-    elif len(sys.argv) == 2 and sys.argv[1] == 'next':
-        task = get_next_task()
-        print(json.dumps(task, ensure_ascii=False, indent=2))
-    elif len(sys.argv) == 2 and sys.argv[1] == 'run-next':
-        print(json.dumps(run_next_task(), ensure_ascii=False, indent=2))
-    else:
-        print('usage: task_queue.py list | task_queue.py next | task_queue.py run-next', file=sys.stderr)
-        sys.exit(2)
+    try:
+        if len(sys.argv) == 2 and sys.argv[1] == 'list':
+            print(json.dumps(list_tasks(), ensure_ascii=False, indent=2))
+        elif len(sys.argv) >= 2 and sys.argv[1] == 'next':
+            goal = ' '.join(sys.argv[2:]).strip() or None
+            task = get_next_task(goal=goal)
+            print(json.dumps(task, ensure_ascii=False, indent=2))
+        elif len(sys.argv) >= 2 and sys.argv[1] == 'run-next':
+            goal = ' '.join(sys.argv[2:]).strip() or None
+            print(json.dumps(run_next_task(goal=goal), ensure_ascii=False, indent=2))
+        else:
+            print('usage: task_queue.py list | task_queue.py next [goal] | task_queue.py run-next [goal]', file=sys.stderr)
+            sys.exit(2)
+    except DependencyValidationError as e:
+        payload = {'ok': False, 'reason': e.reason, 'task_id': e.task_id}
+        payload.update(e.details)
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        sys.exit(1)

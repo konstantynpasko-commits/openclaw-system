@@ -1,40 +1,48 @@
 # Repo State
 
 ## Baseline
-- Baseline name: `orchestration-core-v1`
+- Baseline name: `orchestration-core-v1.1`
 - Status: `frozen`
-- Scope: `minimal working orchestration core`
+- Scope: `minimal working orchestration core + verified planner handshake`
 - Next decision required before further expansion
 
-## Что входит в baseline v1
-- runner
-- review loop
-- memory retrieval
-- queue
+## Frozen baseline contents
+- `runtime/task_runner.py`
+- review / fix loop
+- `runtime/memory.py` + memory index/search
+- `runtime/task_queue.py`
 - queue hardening
 - dependency orchestration
 - dependency safety validation
 - git layer
 - GitHub remote
 - GitHub Actions foundation
+- `openclaw_system/planner_contract.md`
+- `runtime/planner.py`
+- single-task planning
+- linear decomposition planning
+- Planner-to-Queue Handshake
+- verified chain: `planner -> tasks.json -> queue -> runner -> review -> done`
 
-## Что НЕ входит в baseline v1
-- advanced planner layer
-- n8n / Telegram orchestration layer
+## Not included in baseline v1.1
+- advanced planner
+- external integrations
+- n8n / Telegram
 - observability/dashboard
-- full CI pipeline
 - parallel execution
 - advanced DAG orchestration
+- full CI pipeline
 
 ## Git state
-- git-репозиторий: есть
+- git repository: present
 - branch: `main`
-- remote: configured (`origin`)
+- remote: `origin`
 - upstream: configured
-- access_mode: SSH
-- baseline pushed: yes
-- freeze commit: pending commit/push
+- access mode: SSH
+- baseline freeze target: `orchestration-core-v1.1`
+- freeze commit: cae7f8a
+- push target: `origin/main`
 
-## Честная оценка слоя
-- baseline v1 зафиксирован локально как frozen state
-- после freeze commit он должен стать основной точкой отсчёта для дальнейших решений
+## Freeze note
+- this baseline freeze is documentation and repository state fixation only
+- no new feature work is part of this step

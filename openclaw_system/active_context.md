@@ -1,22 +1,20 @@
 # Active Context
 
-## Текущий этап
-- Planner Contract Layer
+## Current phase
+- BASELINE FREEZE: `orchestration-core-v1.1`
 
-## Текущая задача
-- Добавить минимальный planner contract layer поверх frozen baseline v1.
+## Current task
+- Freeze the confirmed post-handshake system state as baseline v1.1.
 
-## Что уже сделано
-- создан planner contract
-- создан runtime planner utility
-- подтверждены режимы single-task и linear-decomposition
-- planner пишет structured tasks в `memory/tasks.json`
+## What is fixed in this freeze
+- minimal orchestration core remains unchanged
+- planner handshake is now part of the frozen baseline
+- verified chain: `planner -> tasks.json -> queue -> runner -> review -> done`
 
-## Что остаётся правдой
-- planner минимальный
-- advanced planning ещё не реализован
-- архитектура baseline v1 не менялась
+## What remains true
+- no new architecture added
+- no new layer started
+- no new features introduced during freeze
 
-## Следующий ожидаемый шаг
-- Не добавлять advanced planner автоматически.
-- Использовать текущий minimal planner contract как следующий управляемый слой над queue.
+## Next step policy
+- next decision required before any further expansion
