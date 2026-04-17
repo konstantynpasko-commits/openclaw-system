@@ -1,26 +1,25 @@
 # Active Context
 
 ## Current phase
-- IMPLEMENTATION: Observability v2
+- IMPLEMENTATION: Command Layer v2
 
 ## Current task
-- Extend `runtime/observability.py` for deeper task inspection and status filters.
+- Extend `runtime/commands.py` so observability v2 is fully available through Telegram commands.
 
 ## What was added
 - `/task <task_id>`
 - `/failed`
 - `/pending`
 - `/running`
-- `runtime/observability_probe_task.py`
-- `runtime/observability_probe_failed.py`
+- `runtime/command_probe_task.py`
+- `runtime/command_probe_failed.py`
 
 ## What remains true
 - no architecture changes
-- no UI
-- no external services
-- data source is only `memory/tasks.json`
+- no new layers
 - planner / queue / runner were not changed
-- this is an extension of the CLI layer only
+- parser stays minimal `startswith`
+- this is only a command layer extension
 
 ## Next step policy
-- use observability v2 for seeing tasks and problems in more detail
+- use command layer v2 for full system control through Telegram

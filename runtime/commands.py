@@ -32,6 +32,16 @@ def _capture_observability(command: str, task_id: str | None = None) -> str:
             if not task_id:
                 raise CommandError('usage: /chain <task_id>')
             observability.cmd_chain(tasks, task_id)
+        elif command == 'task':
+            if not task_id:
+                raise CommandError('usage: /task <task_id>')
+            observability.cmd_task(tasks, task_id)
+        elif command == 'failed':
+            observability.cmd_status_filter(tasks, 'failed')
+        elif command == 'pending':
+            observability.cmd_status_filter(tasks, 'pending')
+        elif command == 'running':
+            observability.cmd_status_filter(tasks, 'running')
         else:
             raise CommandError(f'unsupported observability command: {command}')
     return buf.getvalue().strip()
@@ -105,6 +115,42 @@ def handle_command(text: str):
             'text': text_out,
         }
 
+    if raw.startswith('/task '):
+        task_id = raw[len('/task '):].strip()
+        if not task_id:
+            raise CommandError('usage: /task <task_id>')
+        text_out = _capture_observability('task', task_id=task_id)
+        return {
+            'ok': True,
+            'command': '/task',
+            'task_id': task_id,
+            'text': text_out,
+        }
+
+    if raw == '/failed':
+        text_out = _capture_observability('failed')
+        return {
+            'ok': True,
+            'command': '/failed',
+            'text': text_out,
+        }
+
+    if raw == '/pending':
+        text_out = _capture_observability('pending')
+        return {
+            'ok': True,
+            'command': '/pending',
+            'text': text_out,
+        }
+
+    if raw == '/running':
+        text_out = _capture_observability('running')
+        return {
+            'ok': True,
+            'command': '/running',
+            'text': text_out,
+        }
+
     if raw == '/run_next':
         result = task_queue.run_next_task()
         result['command'] = '/run_next'
@@ -125,7 +171,7 @@ def handle_command(text: str):
 def main(argv=None):
     argv = argv or sys.argv[1:]
     if not argv:
-        print('usage: commands.py "/new_goal <text>" | "/summary" | "/blocked" | "/chain <task_id>" | "/run_next"', file=sys.stderr)
+        print('usage: commands.py "/new_goal <text>" | "/summary" | "/blocked" | "/chain <task_id>" | "/task <task_id>" | "/failed" | "/pending" | "/running" | "/run_next"', file=sys.stderr)
         return 2
 
     try:

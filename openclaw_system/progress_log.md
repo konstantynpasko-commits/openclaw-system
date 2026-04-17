@@ -1,5 +1,22 @@
 # Progress Log
 
+## 2026-04-17 — Command Layer v2
+- Extended `runtime/commands.py`.
+- Added command support for observability v2:
+  - `/task <task_id>`
+  - `/failed`
+  - `/pending`
+  - `/running`
+- Commands reuse `runtime/observability.py`.
+- Output is returned as readable text through the command layer.
+- Added probes:
+  - `runtime/command_probe_task.py`
+  - `runtime/command_probe_failed.py`
+- Observability is now fully available through Telegram commands.
+- Planner, queue, and runner were not changed.
+- No architecture changes.
+- Honest status: RUNTIME VERIFIED.
+
 ## 2026-04-17 — Observability v2
 - Extended `runtime/observability.py`.
 - Added CLI commands over `memory/tasks.json`:

@@ -3,7 +3,7 @@
 ## Baseline v1.2
 - Baseline name: `orchestration-core-v1.2`
 - Status: `frozen`
-- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v1 + observability v2`
+- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v2 + observability v2`
 - Next decision required before further expansion
 
 ## Что входит в baseline v1.2
@@ -43,15 +43,20 @@
 - no dashboard
 - no web interface
 
-### Command Layer v1 (Telegram control)
+### Command Layer v2 (Telegram control)
 - `runtime/commands.py`
 - Telegram is the minimal control interface over existing runtime modules
-- commands:
-  - `/new_goal <text>` -> planner -> `tasks.json`
-  - `/run_next` -> queue -> runner -> review -> done
+- observability is fully available through commands:
   - `/summary`
   - `/blocked`
   - `/chain <task_id>`
+  - `/task <task_id>`
+  - `/failed`
+  - `/pending`
+  - `/running`
+- execution commands:
+  - `/new_goal <text>` -> planner -> `tasks.json`
+  - `/run_next` -> queue -> runner -> review -> done
 - parser is simple `startswith`
 - no NLP
 - no complex routing
@@ -73,5 +78,5 @@
 - complex routing
 
 ## Freeze note
-- observability v2 добавлен как расширение CLI слоя
+- command layer v2 adds full observability command access through Telegram
 - runtime architecture was not changed

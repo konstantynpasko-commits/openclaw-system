@@ -737,5 +737,14 @@
     "notes": "Extend runtime/observability.py with task-level inspection and status filters; add probes; update system memory; commit and push.",
     "created_at": "2026-04-17",
     "updated_at": "2026-04-17"
+  },
+  {
+    "id": "task_implement_command_layer_v2",
+    "title": "Implement Command Layer v2",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Extend runtime/commands.py to expose observability v2 via Telegram commands; add probes; update system memory; commit and push.",
+    "created_at": "2026-04-17",
+    "updated_at": "2026-04-17"
   }
 ]

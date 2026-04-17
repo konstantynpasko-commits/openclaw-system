@@ -3,7 +3,7 @@
 ## Baseline
 - Baseline name: `orchestration-core-v1.2`
 - Status: `frozen`
-- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v1 + observability v2`
+- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v2 + observability v2`
 - Next decision required before further expansion
 
 ## Frozen baseline contents
@@ -42,15 +42,20 @@
 - no dashboard
 - no new service
 
-### Command Layer v1
+### Command Layer v2
 - file: `runtime/commands.py`
 - mode: minimal text command adapter
-- entrypoint commands:
-  - `/new_goal <text>` -> planner -> `tasks.json`
-  - `/run_next` -> queue -> runner -> review -> done
+- observability fully exposed through command layer:
   - `/summary`
   - `/blocked`
   - `/chain <task_id>`
+  - `/task <task_id>`
+  - `/failed`
+  - `/pending`
+  - `/running`
+- execution commands:
+  - `/new_goal <text>` -> planner -> `tasks.json`
+  - `/run_next` -> queue -> runner -> review -> done
 - routing style: direct module dispatch only
 - parser: `startswith`
 - Telegram acts as the control interface for planner, queue, and observability
@@ -75,6 +80,6 @@
 
 ## Honest status
 - baseline v1.2 remains minimal orchestration core
-- observability v2 is an extension of the CLI layer only
+- command layer v2 extends observability access only
 - planner / queue / runner were not changed in this step
 - further expansion requires explicit next decision
