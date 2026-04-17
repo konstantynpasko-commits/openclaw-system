@@ -1,5 +1,27 @@
 # Progress Log
 
+## 2026-04-17 — Telegram Command Layer v1
+- Created `runtime/commands.py`.
+- Added minimal Telegram command parser with direct `startswith` dispatch.
+- Added supported commands:
+  - `/new_goal <text>`
+  - `/summary`
+  - `/blocked`
+  - `/chain <task_id>`
+  - `/run_next`
+- `/new_goal` reuses `runtime/planner.py` and creates planned queue tasks.
+- `/summary`, `/blocked`, `/chain` reuse `runtime/observability.py`.
+- `/run_next` reuses `runtime/task_queue.py`.
+- Added probes:
+  - `runtime/command_probe_new_goal.py`
+  - `runtime/command_probe_run_next.py`
+- Telegram is now the minimal control interface over planner, queue, and observability.
+- No new architecture added.
+- No n8n added.
+- No UI added.
+- No complex routing added.
+- Honest status: RUNTIME VERIFIED.
+
 ## 2026-04-16 — Observability layer (minimal)
 - Created `runtime/observability.py`.
 - Added CLI commands over `memory/tasks.json`:

@@ -2,8 +2,8 @@
 
 ## Baseline
 - Baseline name: `orchestration-core-v1.1`
-- Status: `frozen`
-- Scope: `minimal working orchestration core + verified planner handshake`
+- Status: `extended-minimal`
+- Scope: `minimal working orchestration core + verified planner handshake + minimal Telegram command layer`
 - Next decision required before further expansion
 
 ## Active baseline contents
@@ -30,8 +30,6 @@
 - Planner-to-Queue Handshake
 - verified chain: `planner -> tasks.json -> queue -> runner -> review -> done`
 
-## Additional runtime layer
-
 ### Observability (minimal)
 - file: `runtime/observability.py`
 - mode: CLI / text output only
@@ -45,17 +43,35 @@
 - no dashboard
 - no new service
 
+### Telegram Command Layer v1
+- file: `runtime/commands.py`
+- mode: minimal text command adapter
+- entrypoint commands:
+  - `/new_goal <text>`
+  - `/summary`
+  - `/blocked`
+  - `/chain <task_id>`
+  - `/run_next`
+- routing style: direct module dispatch only
+- parser: `startswith`
+- Telegram now acts as the control interface for planner, queue, and observability
+- no NLP
+- no new service
+- no n8n
+- no complex routing
+
 ## Not in baseline v1.1
 - advanced planner
-- external integrations
-- n8n / Telegram
+- external integrations beyond command entrypoint
+- n8n / workflow automation
 - observability/dashboard
 - parallel execution
 - advanced DAG orchestration
 - full CI pipeline
+- complex routing
 
 ## Honest status
-- baseline v1.1 is frozen
-- current system remains minimal orchestration core
-- observability layer is minimal CLI only
+- baseline remains minimal orchestration core
+- observability layer remains CLI only
+- Telegram command layer is minimal and reuses existing modules
 - further expansion requires explicit next decision
