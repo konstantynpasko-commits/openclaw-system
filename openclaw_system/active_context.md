@@ -1,22 +1,22 @@
 # Active Context
 
 ## Current phase
-- IMPLEMENTATION: Metadata Normalization Layer v1
+- IMPLEMENTATION: Metadata Enforcement Layer v1
 
 ## Current task
-- Normalize missing metadata fields in `memory/tasks.json` without changing existing values.
+- Enforce full metadata on new task creation in planner and command layer.
 
 ## What was added
-- `runtime/normalize_tasks.py`
-- CLI: `python3 runtime/normalize_tasks.py run`
-- `runtime/normalize_tasks_probe.py`
+- planner-side metadata enforcement
+- command-side metadata enforcement for `/new_goal`
+- `runtime/metadata_enforcement_probe.py`
 
 ## What remains true
 - no architecture changes
-- no planner / queue / runner changes
-- no execution logic changes
-- only missing metadata fields are added
+- no runner / queue execution changes
+- no existing task breakage
 - existing values are preserved
+- only creation-time defaults are enforced
 
 ## Next step policy
-- keep tasks on a minimal shared metadata standard
+- all new tasks should start with complete metadata

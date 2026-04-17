@@ -1025,5 +1025,19 @@
     "last_test_status": "unknown",
     "last_review_status": "unknown",
     "depends_on": []
+  },
+  {
+    "id": "task_implement_metadata_enforcement_v1",
+    "title": "Implement Metadata Enforcement Layer v1",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Enforce required task metadata at creation time in planner and command layer; add probes; update system memory; commit and push.",
+    "created_at": "2026-04-17",
+    "updated_at": "2026-04-17",
+    "created_by": "system",
+    "execution_mode": "unknown",
+    "last_test_status": "unknown",
+    "last_review_status": "unknown",
+    "depends_on": []
   }
 ]

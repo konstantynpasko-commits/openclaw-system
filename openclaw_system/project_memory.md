@@ -3,7 +3,7 @@
 ## Baseline v1.2
 - Baseline name: `orchestration-core-v1.2`
 - Status: `frozen`
-- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v2 + observability v2 + output polish v1 + metadata normalization v1`
+- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v2 + observability v2 + output polish v1 + metadata normalization v1 + metadata enforcement v1`
 - Next decision required before further expansion
 
 ## Что входит в baseline v1.2
@@ -25,48 +25,37 @@
 - Planner-to-Queue Handshake VERIFIED
 - verified chain:
   - `planner -> tasks.json -> queue -> runner -> review -> done`
+- new planner-created tasks now enforce metadata:
+  - `created_by=planner`
+  - `execution_mode=planned`
+  - `last_test_status=unknown`
+  - `last_review_status=unknown`
+  - `depends_on=[]` when absent
 
 ### Observability v2
 - `runtime/observability.py`
 - CLI only
 - reads only `memory/tasks.json`
-- commands:
-  - `/summary`
-  - `/blocked`
-  - `/chain <task_id>`
-  - `/task <task_id>`
-  - `/failed`
-  - `/pending`
-  - `/running`
-- task-level inspection and status filters
 - human-readable text output
-- no UI
-- no dashboard
-- no web interface
 
 ### Command Layer v2 (Telegram control)
 - `runtime/commands.py`
-- Telegram is the minimal control interface over existing runtime modules
 - observability is fully available through commands
 - execution commands remain unchanged
-- parser is simple `startswith`
-- no NLP
-- no complex routing
-- no new architecture
 - commands return human-readable text
+- new command-created tasks now enforce metadata:
+  - `created_by=command`
+  - `execution_mode=planned`
+  - `last_test_status=unknown`
+  - `last_review_status=unknown`
+  - `depends_on=[]` when absent
 
-### Metadata Normalization v1
+### Metadata Normalization + Enforcement
 - `runtime/normalize_tasks.py`
-- command: `python3 runtime/normalize_tasks.py run`
-- normalizes missing task metadata fields in `memory/tasks.json`
-- adds only missing fields:
-  - `created_by`
-  - `execution_mode`
-  - `last_test_status`
-  - `last_review_status`
-  - `depends_on`
-- existing values are preserved
-- old tasks are brought to a base metadata standard
+- `runtime/metadata_enforcement_probe.py`
+- old tasks normalized to base standard
+- new tasks created with full metadata by default
+- existing values are preserved and not overwritten
 
 ### Git / CI state
 - git layer
@@ -84,5 +73,5 @@
 - complex routing
 
 ## Freeze note
-- metadata normalization v1 added baseline metadata consistency for old tasks
+- metadata enforcement v1 guarantees clean metadata for new tasks at creation time
 - runtime behavior and architecture were not changed

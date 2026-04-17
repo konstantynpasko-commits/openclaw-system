@@ -76,8 +76,9 @@ def handle_command(text: str):
             description=f'Telegram goal: {goal_text}',
             steps=steps,
             proof_prefix=_proof_prefix(goal_text),
+            created_by='command',
         )
-        created = planner.append_planned_tasks(planned)
+        created = planner.append_planned_tasks(planned, default_created_by='command')
         return {
             'ok': True,
             'command': '/new_goal',

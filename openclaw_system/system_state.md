@@ -3,7 +3,7 @@
 ## Baseline
 - Baseline name: `orchestration-core-v1.2`
 - Status: `frozen`
-- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v2 + observability v2 + output polish v1 + metadata normalization v1`
+- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v2 + observability v2 + output polish v1 + metadata normalization v1 + metadata enforcement v1`
 - Next decision required before further expansion
 
 ## Frozen baseline contents
@@ -24,6 +24,7 @@
 - `linear-decomposition`
 - Planner-to-Queue Handshake VERIFIED
 - verified chain: `planner -> tasks.json -> queue -> runner -> review -> done`
+- planner-created tasks enforce required metadata at creation time
 
 ### Observability v2 + Output Polish v1
 - file: `runtime/observability.py`
@@ -42,22 +43,24 @@
 - routing style: direct module dispatch only
 - parser: `startswith`
 - Telegram acts as the control interface for planner, queue, and observability
+- command-created tasks enforce required metadata at creation time
 - no NLP
 - no new service
 - no external integration layer
 - command output is human-readable
 
-### Metadata Normalization v1
-- file: `runtime/normalize_tasks.py`
-- scope: `memory/tasks.json` only
-- adds missing fields only:
+### Metadata Normalization v1 + Enforcement v1
+- files:
+  - `runtime/normalize_tasks.py`
+  - `runtime/metadata_enforcement_probe.py`
+- normalization updates old tasks by adding missing fields only
+- enforcement guarantees new tasks include:
   - `created_by`
   - `execution_mode`
   - `last_test_status`
   - `last_review_status`
   - `depends_on`
-- keeps existing values unchanged
-- old tasks normalized to a base metadata standard
+- existing values are preserved
 
 ### Git / CI
 - git layer
@@ -76,6 +79,6 @@
 
 ## Honest status
 - baseline v1.2 remains minimal orchestration core
-- metadata normalization v1 changes stored task metadata only
-- planner / queue / runner were not changed in this step
+- metadata enforcement v1 changes task creation defaults only
+- planner / queue / runner execution logic was not changed in this step
 - further expansion requires explicit next decision

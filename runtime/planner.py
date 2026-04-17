@@ -37,7 +37,21 @@ def ensure_unique_id(task_id: str, tasks):
     return f'{task_id}_{n}'
 
 
-def make_task(goal, task_id, title, description, plan, depends_on, success_criteria, proof_artifact=None, review_decision='OK'):
+def ensure_task_metadata(task, default_created_by='planner'):
+    if 'created_by' not in task:
+        task['created_by'] = default_created_by
+    if 'execution_mode' not in task:
+        task['execution_mode'] = 'planned'
+    if 'last_test_status' not in task:
+        task['last_test_status'] = 'unknown'
+    if 'last_review_status' not in task:
+        task['last_review_status'] = 'unknown'
+    if 'depends_on' not in task:
+        task['depends_on'] = []
+    return task
+
+
+def make_task(goal, task_id, title, description, plan, depends_on, success_criteria, proof_artifact=None, review_decision='OK', created_by='planner'):
     task = {
         'goal': goal,
         'task_id': task_id,
@@ -49,13 +63,15 @@ def make_task(goal, task_id, title, description, plan, depends_on, success_crite
         'success_criteria': success_criteria,
         'review_required': True,
         'depends_on': depends_on,
-        'created_by': 'planner',
+        'created_by': created_by,
         'execution_mode': 'planned',
         'execution_path': 'task_runner',
         'initial_status': 'pending',
         'project_id': PROJECT_ID,
         'created_at': today(),
         'updated_at': today(),
+        'last_test_status': 'unknown',
+        'last_review_status': 'unknown',
     }
     if proof_artifact:
         artifact_path = f'/root/.openclaw/workspace/runtime/{proof_artifact}'
@@ -73,10 +89,10 @@ def make_task(goal, task_id, title, description, plan, depends_on, success_crite
             "print('test passed')\nPY"
         )
         task['review_decision'] = review_decision
-    return task
+    return ensure_task_metadata(task, default_created_by=created_by)
 
 
-def plan_single_task(goal: str, title: str, description: str):
+def plan_single_task(goal: str, title: str, description: str, created_by='planner'):
     base_id = slug(title)
     task_id = f'planned_{base_id}'
     return [
@@ -88,11 +104,12 @@ def plan_single_task(goal: str, title: str, description: str):
             plan=f'Execute task: {title}',
             depends_on=[],
             success_criteria=f'Task completed: {title}',
+            created_by=created_by,
         )
     ]
 
 
-def plan_linear(goal: str, title: str, description: str, steps, proof_prefix=None):
+def plan_linear(goal: str, title: str, description: str, steps, proof_prefix=None, created_by='planner'):
     tasks = []
     previous = None
     for idx, step in enumerate(steps, 1):
@@ -108,15 +125,17 @@ def plan_linear(goal: str, title: str, description: str, steps, proof_prefix=Non
                 depends_on=[previous] if previous else [],
                 success_criteria=f'Step {idx} completed: {step}',
                 proof_artifact=proof_artifact,
+                created_by=created_by,
             )
         )
         previous = task_id
     return tasks
 
 
-def append_planned_tasks(new_tasks):
+def append_planned_tasks(new_tasks, default_created_by='planner'):
     tasks = load_tasks()
     for item in new_tasks:
+        ensure_task_metadata(item, default_created_by=default_created_by)
         item['id'] = ensure_unique_id(item['id'], tasks)
         item['task_id'] = item['id']
         if item['depends_on']:
