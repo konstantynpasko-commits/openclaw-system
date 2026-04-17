@@ -3,7 +3,7 @@
 ## Baseline v1.2
 - Baseline name: `orchestration-core-v1.2`
 - Status: `frozen`
-- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v1 + observability v1`
+- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v1 + observability v2`
 - Next decision required before further expansion
 
 ## Что входит в baseline v1.2
@@ -26,14 +26,19 @@
 - verified chain:
   - `planner -> tasks.json -> queue -> runner -> review -> done`
 
-### Observability v1
+### Observability v2
 - `runtime/observability.py`
 - CLI only
-- reads `memory/tasks.json`
+- reads only `memory/tasks.json`
 - commands:
   - `/summary`
   - `/blocked`
   - `/chain <task_id>`
+  - `/task <task_id>`
+  - `/failed`
+  - `/pending`
+  - `/running`
+- task-level inspection and status filters
 - no UI
 - no dashboard
 - no web interface
@@ -62,11 +67,11 @@
 - parallel execution
 - external integrations (`n8n`, API)
 - UI layer
-- advanced observability
+- advanced observability beyond CLI task inspection and filters
 - advanced DAG orchestration
 - full CI pipeline
 - complex routing
 
 ## Freeze note
-- baseline v1.2 фиксирует подтверждённое состояние системы после добавления command layer v1
-- это freeze состояния, без нового runtime-функционала
+- observability v2 добавлен как расширение CLI слоя
+- runtime architecture was not changed

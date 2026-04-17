@@ -728,5 +728,14 @@
     "notes": "Freeze current stable state after command layer v1; update baseline files, commit, and push.",
     "created_at": "2026-04-17",
     "updated_at": "2026-04-17"
+  },
+  {
+    "id": "task_implement_observability_v2",
+    "title": "Implement Observability v2",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Extend runtime/observability.py with task-level inspection and status filters; add probes; update system memory; commit and push.",
+    "created_at": "2026-04-17",
+    "updated_at": "2026-04-17"
   }
 ]

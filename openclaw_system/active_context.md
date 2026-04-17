@@ -1,31 +1,26 @@
 # Active Context
 
 ## Current phase
-- BASELINE FREEZE: orchestration-core-v1.2
+- IMPLEMENTATION: Observability v2
 
 ## Current task
-- Fix current stable system state as frozen baseline v1.2 after command layer v1.
+- Extend `runtime/observability.py` for deeper task inspection and status filters.
 
-## What is fixed in baseline
-- runner
-- review / fix loop
-- memory retrieval
-- queue + queue hardening
-- dependency orchestration + safety
-- planner contract + decomposition
-- planner -> queue handshake VERIFIED
-- observability v1
-- command layer v1 (Telegram control)
+## What was added
+- `/task <task_id>`
+- `/failed`
+- `/pending`
+- `/running`
+- `runtime/observability_probe_task.py`
+- `runtime/observability_probe_failed.py`
 
 ## What remains true
-- no new functions added
-- runtime was not changed in this freeze step
-- no advanced planner
-- no parallel execution
-- no external integrations
-- no UI layer
-- no advanced observability
+- no architecture changes
+- no UI
+- no external services
+- data source is only `memory/tasks.json`
+- planner / queue / runner were not changed
+- this is an extension of the CLI layer only
 
 ## Next step policy
-- treat v1.2 as frozen baseline
-- any expansion must be explicit and separate from this freeze
+- use observability v2 for seeing tasks and problems in more detail

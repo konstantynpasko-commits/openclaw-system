@@ -52,6 +52,41 @@ def cmd_list(tasks):
         }, ensure_ascii=False))
 
 
+def cmd_task(tasks, task_id):
+    task_map = get_task_map(tasks)
+    task = task_map.get(task_id)
+    if not task:
+        print(f'task not found: {task_id}', file=sys.stderr)
+        sys.exit(1)
+    print(json.dumps({
+        'id': task.get('id'),
+        'status': task.get('status'),
+        'depends_on': task.get('depends_on', []) or [],
+        'created_by': task.get('created_by'),
+        'execution_mode': task.get('execution_mode'),
+        'last_test_status': task.get('last_test_status'),
+        'last_review_status': task.get('last_review_status'),
+    }, ensure_ascii=False, indent=2))
+
+
+def cmd_status_filter(tasks, wanted_status):
+    matched = []
+    for task in tasks:
+        if task.get('status') == wanted_status:
+            matched.append({
+                'id': task.get('id'),
+                'status': task.get('status'),
+                'depends_on': task.get('depends_on', []) or [],
+                'created_by': task.get('created_by'),
+                'execution_mode': task.get('execution_mode'),
+            })
+    if not matched:
+        print(f'no {wanted_status} tasks')
+        return
+    for item in matched:
+        print(json.dumps(item, ensure_ascii=False))
+
+
 def cmd_blocked(tasks):
     task_map = get_task_map(tasks)
     blocked = []
@@ -131,7 +166,7 @@ def cmd_chain(tasks, task_id):
 def main():
     tasks = load_tasks()
     if len(sys.argv) < 2:
-        print('usage: observability.py <summary|list|blocked|chain> [task_id]', file=sys.stderr)
+        print('usage: observability.py <summary|list|task|failed|pending|running|blocked|chain> [task_id]', file=sys.stderr)
         sys.exit(2)
 
     command = sys.argv[1]
@@ -139,6 +174,17 @@ def main():
         cmd_summary(tasks)
     elif command == 'list':
         cmd_list(tasks)
+    elif command == 'task':
+        if len(sys.argv) < 3:
+            print('usage: observability.py task <task_id>', file=sys.stderr)
+            sys.exit(2)
+        cmd_task(tasks, sys.argv[2])
+    elif command == 'failed':
+        cmd_status_filter(tasks, 'failed')
+    elif command == 'pending':
+        cmd_status_filter(tasks, 'pending')
+    elif command == 'running':
+        cmd_status_filter(tasks, 'running')
     elif command == 'blocked':
         cmd_blocked(tasks)
     elif command == 'chain':

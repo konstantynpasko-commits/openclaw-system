@@ -1,5 +1,30 @@
 # Progress Log
 
+## 2026-04-17 — Observability v2
+- Extended `runtime/observability.py`.
+- Added CLI commands over `memory/tasks.json`:
+  - `/task <task_id>`
+  - `/failed`
+  - `/pending`
+  - `/running`
+- `/task <task_id>` reports:
+  - `id`
+  - `status`
+  - `depends_on`
+  - `created_by`
+  - `execution_mode`
+  - `last_test_status`
+  - `last_review_status`
+- Added status filters for failed, pending, and running tasks.
+- Added probes:
+  - `runtime/observability_probe_task.py`
+  - `runtime/observability_probe_failed.py`
+- Observability v2 is an extension of the CLI layer only.
+- Planner, queue, and runner were not changed.
+- No UI added.
+- No external services added.
+- Honest status: RUNTIME VERIFIED.
+
 ## 2026-04-17 — Baseline Freeze v1.2
 - Frozen baseline: `orchestration-core-v1.2`.
 - Status: `frozen`.
