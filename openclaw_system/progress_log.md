@@ -1,5 +1,25 @@
 # Progress Log
 
+## 2026-04-17 — Metadata Normalization Layer v1
+- Created `runtime/normalize_tasks.py`.
+- Added CLI command:
+  - `python3 runtime/normalize_tasks.py run`
+- Added normalization rules for missing fields in `memory/tasks.json`:
+  - `created_by`
+  - `execution_mode`
+  - `last_test_status`
+  - `last_review_status`
+  - `depends_on`
+- Rule for `created_by`:
+  - `planned_*` -> `planner`
+  - all others -> `system`
+- Existing values are preserved.
+- Missing fields only are added.
+- Old tasks were normalized to a base metadata standard.
+- Added probe:
+  - `runtime/normalize_tasks_probe.py`
+- Honest status: RUNTIME VERIFIED.
+
 ## 2026-04-17 — Output Polish Layer v1
 - Updated `runtime/observability.py` output formatting.
 - Human-readable text added for:

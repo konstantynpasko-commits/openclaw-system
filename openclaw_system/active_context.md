@@ -1,25 +1,22 @@
 # Active Context
 
 ## Current phase
-- IMPLEMENTATION: Output Polish Layer v1
+- IMPLEMENTATION: Metadata Normalization Layer v1
 
 ## Current task
-- Make command output human-readable without changing command behavior.
+- Normalize missing metadata fields in `memory/tasks.json` without changing existing values.
 
 ## What was added
-- human-readable `/task <task_id>` output
-- human-readable `/failed`
-- human-readable `/pending`
-- human-readable `/running`
-- updated `runtime/command_probe_task.py`
-- updated `runtime/command_probe_failed.py`
+- `runtime/normalize_tasks.py`
+- CLI: `python3 runtime/normalize_tasks.py run`
+- `runtime/normalize_tasks_probe.py`
 
 ## What remains true
 - no architecture changes
 - no planner / queue / runner changes
-- no command behavior changes
-- no UI
-- this is output formatting only
+- no execution logic changes
+- only missing metadata fields are added
+- existing values are preserved
 
 ## Next step policy
-- use command layer with human-readable text output
+- keep tasks on a minimal shared metadata standard
