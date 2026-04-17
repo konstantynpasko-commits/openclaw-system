@@ -746,5 +746,14 @@
     "notes": "Extend runtime/commands.py to expose observability v2 via Telegram commands; add probes; update system memory; commit and push.",
     "created_at": "2026-04-17",
     "updated_at": "2026-04-17"
+  },
+  {
+    "id": "task_implement_output_polish_v1",
+    "title": "Implement Output Polish Layer v1",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Make command output human-readable for task and status filter commands; add probes; update system memory; commit and push.",
+    "created_at": "2026-04-17",
+    "updated_at": "2026-04-17"
   }
 ]

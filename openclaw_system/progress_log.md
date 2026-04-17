@@ -1,5 +1,22 @@
 # Progress Log
 
+## 2026-04-17 — Output Polish Layer v1
+- Updated `runtime/observability.py` output formatting.
+- Human-readable text added for:
+  - `/task <task_id>`
+  - `/failed`
+  - `/pending`
+  - `/running`
+- `/task` now prints labeled lines instead of JSON-in-text.
+- status filter commands now print simple bullet lists.
+- Updated probes:
+  - `runtime/command_probe_task.py`
+  - `runtime/command_probe_failed.py`
+- Commands now return human-readable text.
+- Planner, queue, and runner were not changed.
+- Command behavior was not changed.
+- Honest status: RUNTIME VERIFIED.
+
 ## 2026-04-17 — Command Layer v2
 - Extended `runtime/commands.py`.
 - Added command support for observability v2:

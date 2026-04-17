@@ -1,25 +1,25 @@
 # Active Context
 
 ## Current phase
-- IMPLEMENTATION: Command Layer v2
+- IMPLEMENTATION: Output Polish Layer v1
 
 ## Current task
-- Extend `runtime/commands.py` so observability v2 is fully available through Telegram commands.
+- Make command output human-readable without changing command behavior.
 
 ## What was added
-- `/task <task_id>`
-- `/failed`
-- `/pending`
-- `/running`
-- `runtime/command_probe_task.py`
-- `runtime/command_probe_failed.py`
+- human-readable `/task <task_id>` output
+- human-readable `/failed`
+- human-readable `/pending`
+- human-readable `/running`
+- updated `runtime/command_probe_task.py`
+- updated `runtime/command_probe_failed.py`
 
 ## What remains true
 - no architecture changes
-- no new layers
-- planner / queue / runner were not changed
-- parser stays minimal `startswith`
-- this is only a command layer extension
+- no planner / queue / runner changes
+- no command behavior changes
+- no UI
+- this is output formatting only
 
 ## Next step policy
-- use command layer v2 for full system control through Telegram
+- use command layer with human-readable text output

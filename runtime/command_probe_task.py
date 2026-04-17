@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import json
 from pathlib import Path
 import sys
 
@@ -13,13 +12,15 @@ def main():
     assert result['ok'] is True
     assert result['command'] == '/task'
     assert result['task_id'] == 'task_stage2_review_gate_probe'
-    payload = json.loads(result['text'])
-    assert payload['id'] == 'task_stage2_review_gate_probe'
-    assert payload['status'] == 'done'
-    assert payload['last_test_status'] == 'pass'
-    assert payload['last_review_status'] == 'ok'
+    text = result['text']
+    assert 'Task: task_stage2_review_gate_probe' in text
+    assert 'Status: done' in text
+    assert 'Depends on: none' in text
+    assert 'Execution: runner' in text
+    assert 'Test: pass' in text
+    assert 'Review: ok' in text
     print('probe_command_task: ok')
-    print(result['text'])
+    print(text)
 
 
 if __name__ == '__main__':

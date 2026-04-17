@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import json
 from pathlib import Path
 import sys
 
@@ -12,12 +11,12 @@ def main():
     result = commands.handle_command('/failed')
     assert result['ok'] is True
     assert result['command'] == '/failed'
-    lines = [line for line in result['text'].splitlines() if line.strip()]
-    items = [json.loads(line) for line in lines]
-    assert any(item['id'] == 'task_stage4_queue_probe_fix' for item in items), items
-    assert all(item['status'] == 'failed' for item in items), items
+    text = result['text']
+    assert text.startswith('FAILED TASKS:')
+    assert '- task_stage4_queue_probe_fix' in text
+    assert '- task_queue_harden_retry_probe' in text
     print('probe_command_failed: ok')
-    print(result['text'])
+    print(text)
 
 
 if __name__ == '__main__':

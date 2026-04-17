@@ -26,6 +26,12 @@ def dependencies_satisfied(task, task_map):
     return len(missing) == 0, missing
 
 
+def _display_value(value, fallback='unknown'):
+    if value is None or value == '':
+        return fallback
+    return str(value)
+
+
 def cmd_summary(tasks):
     counts = {'total': len(tasks)}
     for status in SUMMARY_ORDER:
@@ -58,33 +64,24 @@ def cmd_task(tasks, task_id):
     if not task:
         print(f'task not found: {task_id}', file=sys.stderr)
         sys.exit(1)
-    print(json.dumps({
-        'id': task.get('id'),
-        'status': task.get('status'),
-        'depends_on': task.get('depends_on', []) or [],
-        'created_by': task.get('created_by'),
-        'execution_mode': task.get('execution_mode'),
-        'last_test_status': task.get('last_test_status'),
-        'last_review_status': task.get('last_review_status'),
-    }, ensure_ascii=False, indent=2))
+    depends_on = task.get('depends_on', []) or []
+    print(f"Task: {task.get('id')}")
+    print(f"Status: {_display_value(task.get('status'))}")
+    print(f"Depends on: {', '.join(depends_on) if depends_on else 'none'}")
+    print(f"Created by: {_display_value(task.get('created_by'))}")
+    print(f"Execution: {_display_value(task.get('execution_mode'))}")
+    print(f"Test: {_display_value(task.get('last_test_status'))}")
+    print(f"Review: {_display_value(task.get('last_review_status'))}")
 
 
 def cmd_status_filter(tasks, wanted_status):
-    matched = []
-    for task in tasks:
-        if task.get('status') == wanted_status:
-            matched.append({
-                'id': task.get('id'),
-                'status': task.get('status'),
-                'depends_on': task.get('depends_on', []) or [],
-                'created_by': task.get('created_by'),
-                'execution_mode': task.get('execution_mode'),
-            })
+    matched = [task.get('id') for task in tasks if task.get('status') == wanted_status]
+    print(f"{wanted_status.upper()} TASKS:")
     if not matched:
-        print(f'no {wanted_status} tasks')
+        print('- none')
         return
-    for item in matched:
-        print(json.dumps(item, ensure_ascii=False))
+    for task_id in matched:
+        print(f"- {task_id}")
 
 
 def cmd_blocked(tasks):

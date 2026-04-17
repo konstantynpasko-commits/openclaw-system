@@ -3,7 +3,7 @@
 ## Baseline
 - Baseline name: `orchestration-core-v1.2`
 - Status: `frozen`
-- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v2 + observability v2`
+- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v2 + observability v2 + output polish v1`
 - Next decision required before further expansion
 
 ## Frozen baseline contents
@@ -25,7 +25,7 @@
 - Planner-to-Queue Handshake VERIFIED
 - verified chain: `planner -> tasks.json -> queue -> runner -> review -> done`
 
-### Observability v2
+### Observability v2 + Output Polish v1
 - file: `runtime/observability.py`
 - mode: CLI / text output only
 - source: `memory/tasks.json`
@@ -38,6 +38,7 @@
   - `/pending`
   - `/running`
 - task-level inspection and status filters added
+- output is human-readable text
 - no UI
 - no dashboard
 - no new service
@@ -62,6 +63,7 @@
 - no NLP
 - no new service
 - no external integration layer
+- command output is human-readable
 
 ### Git / CI
 - git layer
@@ -80,6 +82,6 @@
 
 ## Honest status
 - baseline v1.2 remains minimal orchestration core
-- command layer v2 extends observability access only
+- output polish v1 changes formatting only
 - planner / queue / runner were not changed in this step
 - further expansion requires explicit next decision
