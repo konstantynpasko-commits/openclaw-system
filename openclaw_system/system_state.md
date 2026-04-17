@@ -1,12 +1,12 @@
 # System State
 
 ## Baseline
-- Baseline name: `orchestration-core-v1.1`
-- Status: `extended-minimal`
-- Scope: `minimal working orchestration core + verified planner handshake + minimal Telegram command layer`
+- Baseline name: `orchestration-core-v1.2`
+- Status: `frozen`
+- Scope: `runner + review/fix loop + memory retrieval + queue + queue hardening + dependency orchestration + dependency safety + planner contract + decomposition + verified planner handshake + command layer v1 + observability v1`
 - Next decision required before further expansion
 
-## Active baseline contents
+## Frozen baseline contents
 
 ### Core
 - `runtime/task_runner.py` as execution center
@@ -17,61 +17,58 @@
 - dependency orchestration
 - dependency safety validation
 
-### Git / CI
-- git layer
-- GitHub remote
-- GitHub Actions foundation
-
 ### Planner
 - planner contract: `openclaw_system/planner_contract.md`
 - planner runtime utility: `runtime/planner.py`
 - `single-task`
 - `linear-decomposition`
-- Planner-to-Queue Handshake
+- Planner-to-Queue Handshake VERIFIED
 - verified chain: `planner -> tasks.json -> queue -> runner -> review -> done`
 
-### Observability (minimal)
+### Observability v1
 - file: `runtime/observability.py`
 - mode: CLI / text output only
 - source: `memory/tasks.json`
 - commands:
-  - `summary`
-  - `list`
-  - `blocked`
-  - `chain <task_id>`
+  - `/summary`
+  - `/blocked`
+  - `/chain <task_id>`
 - no UI
 - no dashboard
 - no new service
 
-### Telegram Command Layer v1
+### Command Layer v1
 - file: `runtime/commands.py`
 - mode: minimal text command adapter
 - entrypoint commands:
-  - `/new_goal <text>`
+  - `/new_goal <text>` -> planner -> `tasks.json`
+  - `/run_next` -> queue -> runner -> review -> done
   - `/summary`
   - `/blocked`
   - `/chain <task_id>`
-  - `/run_next`
 - routing style: direct module dispatch only
 - parser: `startswith`
-- Telegram now acts as the control interface for planner, queue, and observability
+- Telegram acts as the control interface for planner, queue, and observability
 - no NLP
 - no new service
-- no n8n
-- no complex routing
+- no external integration layer
 
-## Not in baseline v1.1
+### Git / CI
+- git layer
+- GitHub remote
+- GitHub Actions foundation
+
+## Not in baseline v1.2
 - advanced planner
-- external integrations beyond command entrypoint
-- n8n / workflow automation
-- observability/dashboard
 - parallel execution
+- external integrations (`n8n`, API)
+- UI layer
+- advanced observability
 - advanced DAG orchestration
 - full CI pipeline
 - complex routing
 
 ## Honest status
-- baseline remains minimal orchestration core
-- observability layer remains CLI only
-- Telegram command layer is minimal and reuses existing modules
+- baseline v1.2 is frozen
+- current system is a minimal orchestration core with verified planner handshake, observability v1, and command layer v1
 - further expansion requires explicit next decision

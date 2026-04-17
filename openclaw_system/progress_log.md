@@ -1,5 +1,32 @@
 # Progress Log
 
+## 2026-04-17 — Baseline Freeze v1.2
+- Frozen baseline: `orchestration-core-v1.2`.
+- Status: `frozen`.
+- Scope includes:
+  - runner
+  - review / fix loop
+  - memory retrieval
+  - queue + queue hardening
+  - dependency orchestration + safety
+  - planner contract + decomposition
+  - planner -> queue handshake VERIFIED
+  - command layer v1 (Telegram control)
+  - observability v1
+- Included command paths:
+  - `/new_goal <text>` -> planner -> `tasks.json`
+  - `/run_next` -> queue -> runner -> review -> done
+  - `/summary`
+  - `/blocked`
+  - `/chain <task_id>`
+- Explicitly excluded:
+  - advanced planner
+  - parallel execution
+  - external integrations (`n8n`, API)
+  - UI layer
+  - advanced observability
+- Honest status: FROZEN BASELINE.
+
 ## 2026-04-17 — Telegram Command Layer v1
 - Created `runtime/commands.py`.
 - Added minimal Telegram command parser with direct `startswith` dispatch.

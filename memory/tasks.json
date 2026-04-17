@@ -719,5 +719,14 @@
     "notes": "Add minimal runtime/commands.py over planner, task_queue, and observability; add probes; update system memory; commit and push.",
     "created_at": "2026-04-17",
     "updated_at": "2026-04-17"
+  },
+  {
+    "id": "task_freeze_baseline_v12",
+    "title": "Freeze orchestration-core-v1.2 baseline",
+    "status": "done",
+    "project_id": "proj_openclaw_mvp",
+    "notes": "Freeze current stable state after command layer v1; update baseline files, commit, and push.",
+    "created_at": "2026-04-17",
+    "updated_at": "2026-04-17"
   }
 ]

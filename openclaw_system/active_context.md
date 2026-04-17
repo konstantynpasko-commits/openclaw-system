@@ -1,30 +1,31 @@
 # Active Context
 
 ## Current phase
-- IMPLEMENTATION: Telegram Command Layer v1
+- BASELINE FREEZE: orchestration-core-v1.2
 
 ## Current task
-- Add minimal Telegram command control over existing planner, queue, and observability modules.
+- Fix current stable system state as frozen baseline v1.2 after command layer v1.
 
-## What was added
-- `runtime/commands.py`
-- commands:
-  - `/new_goal <text>`
-  - `/summary`
-  - `/blocked`
-  - `/chain <task_id>`
-  - `/run_next`
-- `runtime/command_probe_new_goal.py`
-- `runtime/command_probe_run_next.py`
+## What is fixed in baseline
+- runner
+- review / fix loop
+- memory retrieval
+- queue + queue hardening
+- dependency orchestration + safety
+- planner contract + decomposition
+- planner -> queue handshake VERIFIED
+- observability v1
+- command layer v1 (Telegram control)
 
 ## What remains true
-- no new architecture
-- no n8n
-- no UI
-- no complex routing
-- planner / queue / runner stay as the core
-- command parser is minimal `startswith`
+- no new functions added
+- runtime was not changed in this freeze step
+- no advanced planner
+- no parallel execution
+- no external integrations
+- no UI layer
+- no advanced observability
 
 ## Next step policy
-- use Telegram as control interface only
-- keep the layer thin over existing runtime modules
+- treat v1.2 as frozen baseline
+- any expansion must be explicit and separate from this freeze
